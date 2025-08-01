@@ -8,17 +8,74 @@ const zeTags = new Map<string, Component<any>[]>([
 		"GivePoison",
 		[
 			Components.GiveStatusEffect({
-				effect: Components.Poison({
-					damagePerSecond: 5,
-					duration: 4,
-				}),
+				Enter: {
+					Poison: {
+						damagePerSecond: 5,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					Poison: {
+						damagePerSecond: 5,
+						duration: 4,
+					},
+				},
 			}),
+		],
+	],
+	[
+		"GiveBurning",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					Burning: {
+						damagePerSecond: 5,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					Burning: {
+						damagePerSecond: 5,
+						duration: 4,
+					},
+				},
+			}),
+		],
+	],
+	[
+		"Gas",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					Poison: {
+						damagePerSecond: 0.1,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					Poison: {
+						damagePerSecond: 0.1,
+						duration: 1,
+					},
+				},
+			}),
+		],
+	],
+	[
+		"Billy",
+		[
+			Components.Humanoid(),
+			Components.Health({
+				health: 100,
+				maxHealth: 100,
+			}),
+			Components.NaturalRegen(),
 		],
 	],
 ]);
 
 export function SetupTags(world: World) {
-	function spawnEntity(instance: Instance, component: Component<any>[]) {
+	function spawnEntity(instance: Instance, components: Component<any>[]) {
 		const id = world.spawn();
 
 		if (instance.IsA("BasePart")) {
@@ -39,8 +96,8 @@ export function SetupTags(world: World) {
 			);
 		}
 
-		for (const dacomponent of component) {
-			world.insert(id, TableUtil.Copy(dacomponent));
+		for (const dacomponent of components) {
+			world.insert(id, dacomponent);
 		}
 
 		instance.SetAttribute("tagEntityId", id);

@@ -1,4 +1,5 @@
 import { Component, component } from "@rbxts/matter";
+import table from "@rbxts/plasma/src/widgets/table";
 
 export namespace Components {
 	export const Health = component<{
@@ -29,5 +30,24 @@ export namespace Components {
 		duration: number;
 	}>("Poison");
 
-	export const GiveStatusEffect = component<{ effect: Component<any> }>("GiveStatusEffect");
+	export const Burning = component<{
+		damagePerSecond: number;
+		duration: number;
+	}>("Burning");
+
+	interface GiveStatusEffects {
+		Poison?: {
+			damagePerSecond: number;
+			duration: number;
+		};
+		Burning?: {
+			damagePerSecond: number;
+			duration: number;
+		};
+	}
+
+	export const GiveStatusEffect = component<{
+		Enter: GiveStatusEffects;
+		Exit?: GiveStatusEffects;
+	}>("GiveStatusEffect");
 }

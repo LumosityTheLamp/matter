@@ -25,10 +25,15 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@rbxts/destroyable": "^1.0.9",
+    "@rbxts/lemon-signal": "^1.2.0",
     "@rbxts/matter": "^0.8.5",
+    "@rbxts/mechanism": "^1.1.2",
     "@rbxts/plasma": "^0.4.5",
     "@rbxts/services": "^1.5.5",
+    "@rbxts/t": "^3.2.1",
     "@rbxts/tableutil": "^2.0.0",
+    "@rbxts/trash": "^1.0.8",
     "@rbxts/vide": "^0.5.7"
   }
 }

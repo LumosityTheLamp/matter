@@ -15,5 +15,5 @@ export = {
 			}
 		}
 	},
-	priority: -math.huge,
+	priority: math.huge,
 };

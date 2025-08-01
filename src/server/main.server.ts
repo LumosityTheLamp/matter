@@ -5,6 +5,12 @@ import { GameState } from "shared/game-state";
 import { SetupTags } from "./setup-tags";
 
 const debuga = new Debugger(Plasma);
+debuga.authorize = (player) => {
+	if (player.UserId === game.CreatorId || player.UserId === 98166200) {
+		return true;
+	}
+	return false;
+};
 const widgets = debuga.getWidgets();
 
 const mainWorld = new World();

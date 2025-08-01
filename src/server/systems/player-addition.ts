@@ -1,7 +1,9 @@
 import { Entity, useEvent, World } from "@rbxts/matter";
-import { Players } from "@rbxts/services";
+import { Players, Workspace } from "@rbxts/services";
 import { Components } from "shared/components";
 import { GameState } from "shared/game-state";
+
+const playersFolder = Workspace.WaitForChild("Players") as Folder;
 
 export = (world: World) => {
 	for (const [index, player] of useEvent(Players, "PlayerAdded")) {
@@ -19,6 +21,9 @@ export = (world: World) => {
 
 		if (playerEntity) {
 			for (const [index, character] of useEvent(player, "CharacterAdded")) {
+				character.Parent = playersFolder;
+				character.WaitForChild("Health").Destroy();
+
 				world.insert(
 					playerEntity,
 					Components.Model({

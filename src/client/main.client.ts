@@ -1,9 +1,17 @@
 import { Debugger, Loop, System, World } from "@rbxts/matter";
 import Plasma from "@rbxts/plasma";
-import { ReplicatedStorage, RunService, UserInputService } from "@rbxts/services";
+import { ReplicatedStorage, RunService } from "@rbxts/services";
 import { GameState } from "shared/game-state";
+import { MainInputManager } from "./input-manager";
+import { StandardActionBuilder } from "@rbxts/mechanism";
 
 const debuga = new Debugger(Plasma);
+debuga.authorize = (player) => {
+	if (player.UserId === game.CreatorId || player.UserId === 98166200) {
+		return true;
+	}
+	return false;
+};
 const widgets = debuga.getWidgets();
 
 const mainWorld = new World();
@@ -38,8 +46,10 @@ mainLoop.begin({
 	default: RunService.Heartbeat,
 });
 
-UserInputService.InputBegan.Connect((input) => {
-	if (input.KeyCode === Enum.KeyCode.F4) {
-		debuga.toggle();
-	}
+const debuggerAction = new StandardActionBuilder("F4").setProcessed(false);
+
+debuggerAction.activated.Connect(() => {
+	debuga.toggle();
 });
+
+MainInputManager.bind(debuggerAction);

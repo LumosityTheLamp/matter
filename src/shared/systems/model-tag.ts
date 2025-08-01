@@ -5,15 +5,12 @@ import { GameState } from "shared/game-state";
 
 const name = RunService.IsServer() ? "serverEntityId" : "clientEntityId";
 
-export = {
-	system: (world: World) => {
-		for (const [id, record] of world.queryChanged(Components.Model)) {
-			if (record.new) {
-				if (record.new.model) {
-					record.new.model.SetAttribute(name, id);
-				}
+export = (world: World) => {
+	for (const [id, record] of world.queryChanged(Components.Model)) {
+		if (record.new) {
+			if (record.new.model) {
+				record.new.model.SetAttribute(name, id);
 			}
 		}
-	},
-	priority: math.huge,
+	}
 };

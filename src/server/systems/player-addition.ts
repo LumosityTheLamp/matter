@@ -43,6 +43,20 @@ export = (world: World) => {
 
 				world.insert(
 					playerEntity,
+					Components.Speed({
+						speed: 16,
+					}),
+				);
+
+				world.insert(
+					playerEntity,
+					Components.JumpPower({
+						power: 50,
+					}),
+				);
+
+				world.insert(
+					playerEntity,
 					Components.Health({
 						health: 100,
 						maxHealth: 100,

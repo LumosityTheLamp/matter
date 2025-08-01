@@ -10,7 +10,7 @@ const zeTags = new Map<string, Component<any>[]>([
 			Components.GiveStatusEffect({
 				Enter: {
 					Poison: {
-						damagePerSecond: 5,
+						damagePerSecond: 10,
 						duration: math.huge,
 					},
 				},
@@ -29,7 +29,7 @@ const zeTags = new Map<string, Component<any>[]>([
 			Components.GiveStatusEffect({
 				Enter: {
 					Burning: {
-						damagePerSecond: 5,
+						damagePerSecond: 10,
 						duration: math.huge,
 					},
 				},
@@ -43,18 +43,56 @@ const zeTags = new Map<string, Component<any>[]>([
 		],
 	],
 	[
+		"GiveSpeedBoost",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					SpeedBoost: {
+						multiplier: 2,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					SpeedBoost: {
+						multiplier: 1.5,
+						duration: 5,
+					},
+				},
+			}),
+		],
+	],
+	[
+		"GiveJumpPowerBoost",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					JumpPowerBoost: {
+						multiplier: 2,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					JumpPowerBoost: {
+						multiplier: 1.5,
+						duration: 5,
+					},
+				},
+			}),
+		],
+	],
+	[
 		"Gas",
 		[
 			Components.GiveStatusEffect({
 				Enter: {
 					Poison: {
-						damagePerSecond: 0.1,
+						damagePerSecond: 1,
 						duration: math.huge,
 					},
 				},
 				Exit: {
 					Poison: {
-						damagePerSecond: 0.1,
+						damagePerSecond: 0.5,
 						duration: 1,
 					},
 				},
@@ -70,6 +108,12 @@ const zeTags = new Map<string, Component<any>[]>([
 				maxHealth: 100,
 			}),
 			Components.NaturalRegen(),
+			Components.Speed({
+				speed: 16,
+			}),
+			Components.JumpPower({
+				power: 50,
+			}),
 		],
 	],
 ]);

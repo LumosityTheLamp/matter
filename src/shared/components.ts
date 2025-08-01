@@ -35,6 +35,24 @@ export namespace Components {
 		duration: number;
 	}>("Burning");
 
+	export const Speed = component<{
+		speed: number;
+	}>("Speed");
+
+	export const JumpPower = component<{
+		power: number;
+	}>("JumpPower");
+
+	export const SpeedBoost = component<{
+		multiplier: number;
+		duration: number;
+	}>("SpeedBoost");
+
+	export const JumpPowerBoost = component<{
+		multiplier: number;
+		duration: number;
+	}>("JumpPowerBoost");
+
 	interface GiveStatusEffects {
 		Poison?: {
 			damagePerSecond: number;
@@ -42,6 +60,14 @@ export namespace Components {
 		};
 		Burning?: {
 			damagePerSecond: number;
+			duration: number;
+		};
+		SpeedBoost?: {
+			multiplier: number;
+			duration: number;
+		};
+		JumpPowerBoost?: {
+			multiplier: number;
 			duration: number;
 		};
 	}

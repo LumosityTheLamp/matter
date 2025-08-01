@@ -17,6 +17,14 @@ export = (world: World) => {
 						if (burning) {
 							world.insert(aid, Components.Burning(TableUtil.Copy(burning)));
 						}
+						const speedBoost = status.Enter["SpeedBoost"];
+						if (speedBoost) {
+							world.insert(aid, Components.SpeedBoost(TableUtil.Copy(speedBoost)));
+						}
+						const jumpPowerBoost = status.Enter["JumpPowerBoost"];
+						if (jumpPowerBoost) {
+							world.insert(aid, Components.JumpPowerBoost(TableUtil.Copy(jumpPowerBoost)));
+						}
 					}
 				}
 			}
@@ -31,6 +39,14 @@ export = (world: World) => {
 							const burning = status.Exit["Burning"];
 							if (burning) {
 								world.insert(aid, Components.Burning(TableUtil.Copy(burning)));
+							}
+							const speedBoost = status.Exit["SpeedBoost"];
+							if (speedBoost) {
+								world.insert(aid, Components.SpeedBoost(TableUtil.Copy(speedBoost)));
+							}
+							const jumpPowerBoost = status.Exit["JumpPowerBoost"];
+							if (jumpPowerBoost) {
+								world.insert(aid, Components.JumpPowerBoost(TableUtil.Copy(jumpPowerBoost)));
 							}
 						}
 					}

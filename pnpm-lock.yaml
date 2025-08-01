@@ -23,6 +23,9 @@ importers:
       '@rbxts/plasma':
         specifier: ^0.4.5
         version: 0.4.5
+      '@rbxts/remo':
+        specifier: ^1.5.2
+        version: 1.5.2
       '@rbxts/services':
         specifier: ^1.5.5
         version: 1.5.5
@@ -169,6 +172,9 @@ packages:
 
   '@rbxts/plasma@0.4.5':
     resolution: {integrity: sha512-VtbrO/ZRxnRNDadFth/Y0+3NNxJlYTMhS1qWnbRht4NrAOK0hrk0iwGZJz+aOfKSQ2h/Rbh9DLW3SKy124XqaA==}
+
+  '@rbxts/remo@1.5.2':
+    resolution: {integrity: sha512-UQSlJgLcLg1+ocXvg30TfdbuvrS4Qc3yzoxLltc+OP71fF6PmaUg/b6EQlXIt/uBCTOszDHJ7I3nlyG+pTLFjQ==}
 
   '@rbxts/services@1.5.5':
     resolution: {integrity: sha512-Hu7QH2ecefS60zpakKG3T2vgABydoOJqpSG7nXr59wFAbPk/cA+OcsntYPHUWyHAat0VFGZ5jNZLTLdiqfssvg==}
@@ -971,6 +977,8 @@ snapshots:
       '@rbxts/trash': 1.0.8
 
   '@rbxts/plasma@0.4.5': {}
+
+  '@rbxts/remo@1.5.2': {}
 
   '@rbxts/services@1.5.5': {}
 

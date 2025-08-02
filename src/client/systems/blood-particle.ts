@@ -35,7 +35,7 @@ export = (world: World) => {
 						lifetime: 1,
 					}),
 				);
-				SpawnBloodSplat(ray.Position, ray.Normal, rng.NextNumber(2, 4), 5);
+				SpawnBloodSplat(world, ray.Position, ray.Normal, rng.NextNumber(2, 4), 5);
 			}
 		}
 	}

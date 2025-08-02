@@ -3,7 +3,7 @@ import { Components } from "shared/components";
 
 export = (world: World) => {
 	for (const [id, record] of world.queryChanged(Components.Humanoid)) {
-		if (record.new !== undefined) {
+		if (record.new && !record.old) {
 			if (!record.new["humanoid"]) {
 				const model = world.get(id, Components.Model);
 				if (model) {

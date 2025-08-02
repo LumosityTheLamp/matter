@@ -102,9 +102,7 @@ export namespace Components {
 		velocity: Vector3;
 	}>("Velocity");
 
-	export const Gravity = component<{
-		gravity: number;
-	}>("Gravity");
+	export const Gravity = component("Gravity");
 
 	export const Networked = component("Networked");
 }

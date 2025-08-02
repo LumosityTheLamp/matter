@@ -32,6 +32,7 @@ export = (world: World) => {
 				const finalInstance = instances[rng.NextInteger(0, instances.size() - 1)];
 
 				SpawnBloodParticle(
+					world,
 					finalInstance.Position.add(
 						new Vector3(
 							rng.NextNumber(-finalInstance.Size.X / 2, finalInstance.Size.X / 2),

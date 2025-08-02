@@ -3,7 +3,6 @@ import Plasma from "@rbxts/plasma";
 import { ReplicatedStorage, RunService, UserInputService } from "@rbxts/services";
 import { GameState } from "shared/game-state";
 import { SetupTags } from "./setup-tags";
-import { mainWorld } from "shared/world";
 
 const debuga = new Debugger(Plasma);
 debuga.authorize = (player) => {
@@ -14,6 +13,7 @@ debuga.authorize = (player) => {
 };
 const widgets = debuga.getWidgets();
 
+const mainWorld = new World();
 const gameState: GameState = {};
 const mainLoop = new Loop(mainWorld, gameState, widgets);
 debuga.autoInitialize(mainLoop);

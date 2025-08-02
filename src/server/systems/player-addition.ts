@@ -21,48 +21,51 @@ export = (world: World) => {
 
 		if (playerEntity) {
 			for (const [index, character] of useEvent(player, "CharacterAdded")) {
-				character.Parent = playersFolder;
-				character.WaitForChild("Health").Destroy();
+				task.spawn(() => {
+					task.wait(0.5);
+					character.Parent = playersFolder;
+					character.WaitForChild("Health").Destroy();
 
-				world.insert(
-					playerEntity,
-					Components.Model({
-						model: character,
-					}),
-				);
-
-				const humanoid = character.FindFirstChildOfClass("Humanoid");
-				if (humanoid) {
 					world.insert(
 						playerEntity,
-						Components.Humanoid({
-							humanoid: humanoid,
+						Components.Model({
+							model: character,
 						}),
 					);
-				}
 
-				world.insert(
-					playerEntity,
-					Components.Speed({
-						speed: 16,
-					}),
-				);
+					const humanoid = character.FindFirstChildOfClass("Humanoid");
+					if (humanoid) {
+						world.insert(
+							playerEntity,
+							Components.Humanoid({
+								humanoid: humanoid,
+							}),
+						);
+					}
 
-				world.insert(
-					playerEntity,
-					Components.JumpPower({
-						power: 50,
-					}),
-				);
+					world.insert(
+						playerEntity,
+						Components.Speed({
+							speed: 16,
+						}),
+					);
 
-				world.insert(
-					playerEntity,
-					Components.Health({
-						health: 100,
-						maxHealth: 100,
-					}),
-					Components.NaturalRegen(),
-				);
+					world.insert(
+						playerEntity,
+						Components.JumpPower({
+							power: 50,
+						}),
+					);
+
+					world.insert(
+						playerEntity,
+						Components.Health({
+							health: 100,
+							maxHealth: 100,
+						}),
+						Components.NaturalRegen(),
+					);
+				});
 			}
 
 			for (const [index, character] of useEvent(player, "CharacterRemoving")) {

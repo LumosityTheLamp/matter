@@ -53,6 +53,15 @@ export namespace Components {
 		duration: number;
 	}>("JumpPowerBoost");
 
+	export const Bleed = component<{
+		damagePercentage: number;
+		duration: number;
+	}>("Bleed");
+
+	export const BleedParticleEmitter = component<{
+		bloodParticleTimer: number;
+	}>("BleedParticleEmitter");
+
 	interface GiveStatusEffects {
 		Poison?: {
 			damagePerSecond: number;
@@ -70,10 +79,32 @@ export namespace Components {
 			multiplier: number;
 			duration: number;
 		};
+		Bleed?: {
+			damagePercentage: number;
+			duration: number;
+		};
 	}
 
 	export const GiveStatusEffect = component<{
 		Enter: GiveStatusEffects;
 		Exit?: GiveStatusEffects;
 	}>("GiveStatusEffect");
+
+	export const BloodParticle = component<{
+		lifetime: number;
+	}>("BloodParticle");
+
+	export const BloodSplat = component<{
+		lifetime: number;
+	}>("BloodSplat");
+
+	export const Velocity = component<{
+		velocity: Vector3;
+	}>("Velocity");
+
+	export const Gravity = component<{
+		gravity: number;
+	}>("Gravity");
+
+	export const Networked = component("Networked");
 }

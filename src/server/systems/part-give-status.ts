@@ -25,6 +25,10 @@ export = (world: World) => {
 						if (jumpPowerBoost) {
 							world.insert(aid, Components.JumpPowerBoost(TableUtil.Copy(jumpPowerBoost)));
 						}
+						const bleed = status.Enter["Bleed"];
+						if (bleed) {
+							world.insert(aid, Components.Bleed(TableUtil.Copy(bleed)));
+						}
 					}
 				}
 			}
@@ -47,6 +51,10 @@ export = (world: World) => {
 							const jumpPowerBoost = status.Exit["JumpPowerBoost"];
 							if (jumpPowerBoost) {
 								world.insert(aid, Components.JumpPowerBoost(TableUtil.Copy(jumpPowerBoost)));
+							}
+							const bleed = status.Exit["Bleed"];
+							if (bleed) {
+								world.insert(aid, Components.Bleed(TableUtil.Copy(bleed)));
 							}
 						}
 					}

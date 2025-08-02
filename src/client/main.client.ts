@@ -91,6 +91,8 @@ Remotes.ReplicateComponents.connect((changes) => {
 				mainWorld.insert(clientEntityId, c);
 			}
 
+			mainWorld.insert(clientEntityId, Components.Networked());
+
 			entityIdMap.set(serverEntityId, clientEntityId);
 		} else {
 			for (const c of componentsToInsert) {

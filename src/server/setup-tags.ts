@@ -81,6 +81,25 @@ const zeTags = new Map<string, Component<any>[]>([
 		],
 	],
 	[
+		"GiveBleed",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					Bleed: {
+						damagePercentage: 0.1,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					Bleed: {
+						damagePercentage: 0.05,
+						duration: 4,
+					},
+				},
+			}),
+		],
+	],
+	[
 		"Gas",
 		[
 			Components.GiveStatusEffect({

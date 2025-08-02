@@ -19,6 +19,10 @@ const replicatedComponents = [
 	Components.Player,
 	Components.Speed,
 	Components.SpeedBoost,
+	Components.Bleed,
+	Components.BloodParticle,
+	Components.Velocity,
+	Components.Gravity,
 ];
 
 export = {

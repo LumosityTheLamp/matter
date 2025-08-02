@@ -6,11 +6,16 @@ import { GameState } from "shared/game-state";
 const name = RunService.IsServer() ? "serverEntityId" : "clientEntityId";
 
 export = (world: World) => {
-	for (const [id, record] of world.queryChanged(Components.Model)) {
+	for (const [id, record] of world.queryChanged(Components.Bleed)) {
 		if (record.new && !record.old) {
-			if (record.new.model) {
-				record.new.model.SetAttribute(name, id);
-			}
+			world.insert(
+				id,
+				Components.BleedParticleEmitter({
+					bloodParticleTimer: 0,
+				}),
+			);
+		} else if (!record.new && record.old) {
+			world.remove(id, Components.BleedParticleEmitter);
 		}
 	}
 };

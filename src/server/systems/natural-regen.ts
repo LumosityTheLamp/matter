@@ -4,9 +4,7 @@ import { Components } from "shared/components";
 import { GameState } from "shared/game-state";
 
 export = (world: World) => {
-	for (const [id, health, naturalRegen] of world
-		.query(Components.Health, Components.NaturalRegen)
-		.without(Components.Poison)) {
+	for (const [id, health, naturalRegen] of world.query(Components.Health, Components.NaturalRegen)) {
 		world.insert(
 			id,
 			health.patch({

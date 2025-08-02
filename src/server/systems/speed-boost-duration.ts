@@ -2,7 +2,7 @@ import { useDeltaTime, World } from "@rbxts/matter";
 import { Components } from "shared/components";
 
 export = (world: World) => {
-	for (const [id, speedBoost] of world.query(Components.SpeedBoost).without(Components.GiveStatusEffect)) {
+	for (const [id, speedBoost] of world.query(Components.SpeedBoost)) {
 		world.insert(
 			id,
 			speedBoost.patch({

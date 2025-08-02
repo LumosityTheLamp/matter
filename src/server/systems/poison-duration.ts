@@ -2,7 +2,7 @@ import { useDeltaTime, World } from "@rbxts/matter";
 import { Components } from "shared/components";
 
 export = (world: World) => {
-	for (const [id, poison] of world.query(Components.Poison).without(Components.GiveStatusEffect)) {
+	for (const [id, poison] of world.query(Components.Poison)) {
 		world.insert(
 			id,
 			poison.patch({

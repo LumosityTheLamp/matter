@@ -14,7 +14,7 @@ export = (world: World) => {
 			velocity.patch({
 				velocity: new Vector3(
 					velocity.velocity.X,
-					velocity.velocity.Y + Workspace.Gravity * useDeltaTime(),
+					velocity.velocity.Y - (Workspace.Gravity / 4) * useDeltaTime(),
 					velocity.velocity.Z,
 				),
 			}),

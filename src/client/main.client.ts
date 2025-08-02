@@ -1,12 +1,18 @@
 import { AnyComponent, Debugger, Entity, Loop, System, World } from "@rbxts/matter";
 import Plasma from "@rbxts/plasma";
-import { ReplicatedStorage, RunService } from "@rbxts/services";
+import { ReplicatedStorage, RunService, StarterGui } from "@rbxts/services";
 import { GameState } from "shared/game-state";
 import { MainInputManager } from "./input-manager";
 import { StandardActionBuilder } from "@rbxts/mechanism";
 import { Remotes } from "shared/remotes";
 import { Components } from "shared/components";
 import { ComponentCtor } from "@rbxts/matter/lib/component";
+import { root } from "@rbxts/vide";
+
+StarterGui.SetCoreGuiEnabled("All", false);
+StarterGui.SetCoreGuiEnabled("Chat", true);
+StarterGui.SetCoreGuiEnabled("PlayerList", true);
+StarterGui.SetCoreGuiEnabled("Backpack", true);
 
 const debuga = new Debugger(Plasma);
 debuga.authorize = (player) => {
@@ -24,6 +30,7 @@ debuga.autoInitialize(mainLoop);
 
 const sharedSystems = ReplicatedStorage.WaitForChild("TS").WaitForChild("systems");
 const systemsFolder = script.Parent?.WaitForChild("systems");
+const guiFolder = script.Parent?.WaitForChild("gui");
 
 const systems: System<[World]>[] = [];
 
@@ -39,6 +46,17 @@ if (sharedSystems) {
 	for (const instance of sharedSystems.GetChildren()) {
 		if (instance.IsA("ModuleScript")) {
 			systems.push(require(instance) as System<[World]>);
+		}
+	}
+}
+
+if (guiFolder) {
+	for (const instance of guiFolder.GetChildren()) {
+		if (instance.IsA("ModuleScript")) {
+			systems.push(
+				(require(instance) as { system: System<[World]>; gui: () => void })["system"] as System<[World]>,
+			);
+			root((require(instance) as { system: System<[World]>; gui: () => void })["gui"]);
 		}
 	}
 }

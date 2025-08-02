@@ -105,4 +105,6 @@ export namespace Components {
 	export const Gravity = component("Gravity");
 
 	export const Networked = component("Networked");
+
+	export const LocalPlayer = component("LocalPlayer");
 }

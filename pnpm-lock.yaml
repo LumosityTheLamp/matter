@@ -23,9 +23,15 @@ importers:
       '@rbxts/plasma':
         specifier: ^0.4.5
         version: 0.4.5
+      '@rbxts/pretty-vide-utils':
+        specifier: ^0.0.5
+        version: 0.0.5
       '@rbxts/remo':
         specifier: ^1.5.2
         version: 1.5.2
+      '@rbxts/ripple':
+        specifier: ^0.9.3
+        version: 0.9.3
       '@rbxts/services':
         specifier: ^1.5.5
         version: 1.5.5
@@ -173,11 +179,20 @@ packages:
   '@rbxts/plasma@0.4.5':
     resolution: {integrity: sha512-VtbrO/ZRxnRNDadFth/Y0+3NNxJlYTMhS1qWnbRht4NrAOK0hrk0iwGZJz+aOfKSQ2h/Rbh9DLW3SKy124XqaA==}
 
+  '@rbxts/pretty-vide-utils@0.0.5':
+    resolution: {integrity: sha512-zPfuL7Qt5wEox9zh8XNjXnhb7SuqHtaLpPvBYPw/a8RnpIymCDhLY2J/mJUKAwTqVJxH+7opZIhw4C4MWa13bg==}
+
   '@rbxts/remo@1.5.2':
     resolution: {integrity: sha512-UQSlJgLcLg1+ocXvg30TfdbuvrS4Qc3yzoxLltc+OP71fF6PmaUg/b6EQlXIt/uBCTOszDHJ7I3nlyG+pTLFjQ==}
 
+  '@rbxts/ripple@0.9.3':
+    resolution: {integrity: sha512-GmwjQl7a8pvGPGQYLmaAcf2RBPpneOL5P1+U8CzTHt9tBhCdk0TEJ/MQoTv9JnHD62RMBE1jogQBvuGgl9VXAg==}
+
   '@rbxts/services@1.5.5':
     resolution: {integrity: sha512-Hu7QH2ecefS60zpakKG3T2vgABydoOJqpSG7nXr59wFAbPk/cA+OcsntYPHUWyHAat0VFGZ5jNZLTLdiqfssvg==}
+
+  '@rbxts/set-timeout@1.1.2':
+    resolution: {integrity: sha512-P/A0IiH9wuZdSJYr4Us0MDFm61nvIFR0acfKFHLkcOsgvIgELC90Up9ugiSsaMEHRIcIcO5UjE39LuS3xTzQHw==}
 
   '@rbxts/t@3.2.1':
     resolution: {integrity: sha512-/fnf2QSx+TI3HSJ6QW2ikvGQk0mlx/63UXo60pLAKGqbxXiAuTJh88bpKpHw6aCzfFLJAwrVIcgCUOokLMPcag==}
@@ -978,9 +993,22 @@ snapshots:
 
   '@rbxts/plasma@0.4.5': {}
 
+  '@rbxts/pretty-vide-utils@0.0.5':
+    dependencies:
+      '@rbxts/ripple': 0.9.3
+      '@rbxts/services': 1.5.5
+      '@rbxts/set-timeout': 1.1.2
+      '@rbxts/vide': 0.5.7
+
   '@rbxts/remo@1.5.2': {}
 
+  '@rbxts/ripple@0.9.3': {}
+
   '@rbxts/services@1.5.5': {}
+
+  '@rbxts/set-timeout@1.1.2':
+    dependencies:
+      '@rbxts/services': 1.5.5
 
   '@rbxts/t@3.2.1': {}
 

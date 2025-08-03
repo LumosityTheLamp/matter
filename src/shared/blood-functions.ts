@@ -40,6 +40,10 @@ export function SpawnBloodSplat(world: World, position: Vector3, direction: Vect
 	const bloodSplatClone = bloodSplatPart.Clone();
 	bloodSplatClone.CFrame = new CFrame(position, position.add(direction));
 	bloodSplatClone.Size = Vector3.zero;
+	(bloodSplatClone.WaitForChild("SurfaceGui").WaitForChild("ImageLabel") as ImageLabel).Rotation = rng.NextNumber(
+		-180,
+		180,
+	);
 	bloodSplatClone.Parent = bloodSplatFolder;
 
 	const entity = world.spawn();

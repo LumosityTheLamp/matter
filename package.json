@@ -34,6 +34,7 @@
     "@rbxts/remo": "^1.5.2",
     "@rbxts/ripple": "^0.9.3",
     "@rbxts/services": "^1.5.5",
+    "@rbxts/set-timeout": "^1.1.2",
     "@rbxts/t": "^3.2.1",
     "@rbxts/tableutil": "^2.0.0",
     "@rbxts/trash": "^1.0.8",

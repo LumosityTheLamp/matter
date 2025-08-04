@@ -29,6 +29,14 @@ export = (world: World) => {
 						if (bleed) {
 							world.insert(aid, Components.Bleed(TableUtil.Copy(bleed)));
 						}
+						const regen = status.Enter["Regen"];
+						if (regen) {
+							world.insert(aid, Components.Regen(TableUtil.Copy(regen)));
+						}
+						const overRegen = status.Enter["OverRegen"];
+						if (overRegen) {
+							world.insert(aid, Components.OverRegen(TableUtil.Copy(overRegen)));
+						}
 					}
 				}
 			}
@@ -55,6 +63,14 @@ export = (world: World) => {
 							const bleed = status.Exit["Bleed"];
 							if (bleed) {
 								world.insert(aid, Components.Bleed(TableUtil.Copy(bleed)));
+							}
+							const regen = status.Exit["Regen"];
+							if (regen) {
+								world.insert(aid, Components.Regen(TableUtil.Copy(regen)));
+							}
+							const overRegen = status.Exit["OverRegen"];
+							if (overRegen) {
+								world.insert(aid, Components.OverRegen(TableUtil.Copy(overRegen)));
 							}
 						}
 					}

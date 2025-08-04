@@ -7,6 +7,8 @@ const burningEffect = ReplicatedStorage.WaitForChild("BurningEffect") as Particl
 const smokeEffect = ReplicatedStorage.WaitForChild("SmokeEffect") as ParticleEmitter;
 const speedBoostEffect = ReplicatedStorage.WaitForChild("SpeedBoostEffect") as ParticleEmitter;
 const jumpPowerBoostEffect = ReplicatedStorage.WaitForChild("JumpPowerBoostEffect") as ParticleEmitter;
+const regenEffect = ReplicatedStorage.WaitForChild("RegenEffect") as ParticleEmitter;
+const overRegenEffect = ReplicatedStorage.WaitForChild("OverRegenEffect") as ParticleEmitter;
 
 export = (world: World) => {
 	for (const [id, record] of world.queryChanged(Components.Poison)) {
@@ -173,6 +175,80 @@ export = (world: World) => {
 					if (instance.IsA("BasePart")) {
 						const jumpPowerBoostEffectClone = jumpPowerBoostEffect.Clone();
 						jumpPowerBoostEffectClone.Parent = instance;
+					}
+				}
+			}
+		}
+	}
+
+	for (const [id, record] of world.queryChanged(Components.Regen)) {
+		const model = world.get(id, Components.Model);
+
+		if (model) {
+			if (record.new === undefined) {
+				for (const instance of model.model.GetDescendants()) {
+					if (CollectionService.HasTag(instance, "RegenEffect")) {
+						task.spawn(() => {
+							(instance as ParticleEmitter).Enabled = false;
+							task.wait((instance as ParticleEmitter).Lifetime.Max);
+							if ((instance as ParticleEmitter).Enabled === false) {
+								instance.Destroy();
+							}
+						});
+					}
+				}
+				continue;
+			}
+
+			let containsRegen = false;
+			for (const instance of model.model.GetDescendants()) {
+				if (CollectionService.HasTag(instance, "RegenEffect")) {
+					containsRegen = true;
+					(instance as ParticleEmitter).Enabled = true;
+				}
+			}
+			if (!containsRegen) {
+				for (const instance of model.model.GetDescendants()) {
+					if (instance.IsA("BasePart")) {
+						const regenEffectClone = regenEffect.Clone();
+						regenEffectClone.Parent = instance;
+					}
+				}
+			}
+		}
+	}
+
+	for (const [id, record] of world.queryChanged(Components.OverRegen)) {
+		const model = world.get(id, Components.Model);
+
+		if (model) {
+			if (record.new === undefined) {
+				for (const instance of model.model.GetDescendants()) {
+					if (CollectionService.HasTag(instance, "OverRegenEffect")) {
+						task.spawn(() => {
+							(instance as ParticleEmitter).Enabled = false;
+							task.wait((instance as ParticleEmitter).Lifetime.Max);
+							if ((instance as ParticleEmitter).Enabled === false) {
+								instance.Destroy();
+							}
+						});
+					}
+				}
+				continue;
+			}
+
+			let containsOverRegen = false;
+			for (const instance of model.model.GetDescendants()) {
+				if (CollectionService.HasTag(instance, "OverRegenEffect")) {
+					containsOverRegen = true;
+					(instance as ParticleEmitter).Enabled = true;
+				}
+			}
+			if (!containsOverRegen) {
+				for (const instance of model.model.GetDescendants()) {
+					if (instance.IsA("BasePart")) {
+						const overRegenEffectClone = overRegenEffect.Clone();
+						overRegenEffectClone.Parent = instance;
 					}
 				}
 			}

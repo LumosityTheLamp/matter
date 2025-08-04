@@ -23,44 +23,43 @@ const bleed = source({
 	duration: 0,
 });
 
-let damageThingValue = 1;
-let damageTimer = 0;
+const overHealth = source({
+	health: 0,
+});
 
-const setSignal = new Signal();
-const smoothSignal = new Signal();
+const damageThing = source(1);
 
 function GetTotal(): number {
-	return (
+	return math.max(
 		poison().damagePerSecond * poison().duration +
-		burning().damagePerSecond * burning().duration +
-		health().maxHealth * bleed().damagePercentage * bleed().duration
+			burning().damagePerSecond * burning().duration +
+			health().maxHealth * bleed().damagePercentage * bleed().duration -
+			overHealth().health,
+		0,
 	);
 }
 
 export = {
 	system: (world: World) => {
-		for (const character of useEvent(Players.LocalPlayer, "CharacterAdded")) {
-			poison({
-				damagePerSecond: 0,
-				duration: 0,
-			});
-			burning({
-				damagePerSecond: 0,
-				duration: 0,
-			});
-			bleed({
-				damagePercentage: 0,
-				duration: 0,
-			});
-		}
+		poison({
+			damagePerSecond: 0,
+			duration: 0,
+		});
+		burning({
+			damagePerSecond: 0,
+			duration: 0,
+		});
+		bleed({
+			damagePercentage: 0,
+			duration: 0,
+		});
+		overHealth({
+			health: 0,
+		});
 
 		for (const [id, zahealth] of world.query(Components.Health, Components.LocalPlayer)) {
-			if (health().health > zahealth.health) {
-				damageTimer = 2;
-			}
-
-			if (health().health < zahealth.health && damageThingValue < zahealth.health / zahealth.maxHealth) {
-				setSignal.Fire();
+			if (health().health < zahealth.health && damageThing() < zahealth.health / zahealth.maxHealth) {
+				damageThing(zahealth.health / zahealth.maxHealth);
 			}
 			health(zahealth);
 		}
@@ -77,25 +76,13 @@ export = {
 			bleed(zableed);
 		}
 
-		if (damageTimer > 0) {
-			damageTimer -= useDeltaTime();
-
-			if (damageTimer <= 0) {
-				smoothSignal.Fire();
-			}
+		for (const [id, zaoverHealth] of world.query(Components.OverHealth, Components.LocalPlayer)) {
+			overHealth(zaoverHealth);
 		}
+
+		damageThing(math.lerp(damageThing(), health().health / health().maxHealth, 0.1));
 	},
 	gui: () => {
-		const [damageThingSource, damageThingMotion] = useMotion(1);
-
-		setSignal.Connect(() => {
-			damageThingMotion.immediate(health().health / health().maxHealth);
-		});
-
-		smoothSignal.Connect(() => {
-			damageThingMotion.linear(health().health / health().maxHealth);
-		});
-
 		return (
 			<screengui Parent={Players.LocalPlayer.WaitForChild("PlayerGui")} ResetOnSpawn={false}>
 				<uipadding PaddingBottom={new UDim(0.1, 0)} />
@@ -110,10 +97,9 @@ export = {
 					<uistroke Color={new Color3(0, 0, 0)} Thickness={4} />
 					<frame
 						Size={() => {
-							damageThingValue = damageThingSource();
-							return new UDim2(damageThingSource(), 0, 1, 0);
+							return new UDim2(damageThing(), 0, 1, 0);
 						}}
-						BackgroundColor3={new Color3(1, 0.5, 0)}
+						BackgroundColor3={new Color3(1, 1, 1)}
 					>
 						<uicorner CornerRadius={new UDim(0, 8)} />
 					</frame>
@@ -140,11 +126,19 @@ export = {
 					>
 						<uicorner CornerRadius={new UDim(0, 8)} />
 					</frame>
+					<frame
+						Size={() => new UDim2(overHealth().health / health().maxHealth, 0, 1, 0)}
+						BackgroundColor3={new Color3(0, 1, 0)}
+					>
+						<uicorner CornerRadius={new UDim(0, 8)} />
+					</frame>
 					<textlabel
 						Size={new UDim2(1, 0, 1, 0)}
 						BackgroundTransparency={1}
 						TextSize={24}
-						Text={() => `${math.ceil(health().health)} / ${math.ceil(health().maxHealth)}`}
+						Text={() =>
+							`${math.ceil(health().health + overHealth().health)} / ${math.ceil(health().maxHealth)}`
+						}
 						TextColor3={new Color3(1, 1, 1)}
 						TextStrokeColor3={new Color3(0, 0, 0)}
 						TextStrokeTransparency={0}

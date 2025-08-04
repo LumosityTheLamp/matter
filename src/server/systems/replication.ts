@@ -23,6 +23,9 @@ const replicatedComponents = [
 	Components.BloodParticle,
 	Components.Velocity,
 	Components.Gravity,
+	Components.Regen,
+	Components.OverHealth,
+	Components.OverRegen,
 ];
 
 export = {

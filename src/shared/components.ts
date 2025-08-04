@@ -58,6 +58,20 @@ export namespace Components {
 		duration: number;
 	}>("Bleed");
 
+	export const Regen = component<{
+		regenPerSecond: number;
+		duration: number;
+	}>("Regen");
+
+	export const OverHealth = component<{
+		health: number;
+	}>("OverHealth");
+
+	export const OverRegen = component<{
+		regenPerSecond: number;
+		duration: number;
+	}>("OverRegen");
+
 	export const BleedParticleEmitter = component<{
 		bloodParticleTimer: number;
 	}>("BleedParticleEmitter");
@@ -81,6 +95,14 @@ export namespace Components {
 		};
 		Bleed?: {
 			damagePercentage: number;
+			duration: number;
+		};
+		Regen?: {
+			regenPerSecond: number;
+			duration: number;
+		};
+		OverRegen?: {
+			regenPerSecond: number;
 			duration: number;
 		};
 	}

@@ -17,7 +17,7 @@ const zeTags = new Map<string, Component<any>[]>([
 				Exit: {
 					Poison: {
 						damagePerSecond: 5,
-						duration: 4,
+						duration: 2,
 					},
 				},
 			}),
@@ -36,7 +36,7 @@ const zeTags = new Map<string, Component<any>[]>([
 				Exit: {
 					Burning: {
 						damagePerSecond: 5,
-						duration: 4,
+						duration: 2,
 					},
 				},
 			}),
@@ -48,14 +48,14 @@ const zeTags = new Map<string, Component<any>[]>([
 			Components.GiveStatusEffect({
 				Enter: {
 					SpeedBoost: {
-						multiplier: 2,
+						multiplier: 1.75,
 						duration: math.huge,
 					},
 				},
 				Exit: {
 					SpeedBoost: {
 						multiplier: 1.5,
-						duration: 5,
+						duration: 2,
 					},
 				},
 			}),
@@ -67,14 +67,14 @@ const zeTags = new Map<string, Component<any>[]>([
 			Components.GiveStatusEffect({
 				Enter: {
 					JumpPowerBoost: {
-						multiplier: 2,
+						multiplier: 1.75,
 						duration: math.huge,
 					},
 				},
 				Exit: {
 					JumpPowerBoost: {
 						multiplier: 1.5,
-						duration: 5,
+						duration: 2,
 					},
 				},
 			}),
@@ -86,14 +86,52 @@ const zeTags = new Map<string, Component<any>[]>([
 			Components.GiveStatusEffect({
 				Enter: {
 					Bleed: {
-						damagePercentage: 0.1,
+						damagePercentage: 0.2,
 						duration: math.huge,
 					},
 				},
 				Exit: {
 					Bleed: {
-						damagePercentage: 0.05,
-						duration: 4,
+						damagePercentage: 0.1,
+						duration: 2,
+					},
+				},
+			}),
+		],
+	],
+	[
+		"GiveRegen",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					Regen: {
+						regenPerSecond: 10,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					Regen: {
+						regenPerSecond: 5,
+						duration: 2,
+					},
+				},
+			}),
+		],
+	],
+	[
+		"GiveOverRegen",
+		[
+			Components.GiveStatusEffect({
+				Enter: {
+					OverRegen: {
+						regenPerSecond: 20,
+						duration: math.huge,
+					},
+				},
+				Exit: {
+					OverRegen: {
+						regenPerSecond: 10,
+						duration: 2,
 					},
 				},
 			}),
@@ -105,13 +143,13 @@ const zeTags = new Map<string, Component<any>[]>([
 			Components.GiveStatusEffect({
 				Enter: {
 					Poison: {
-						damagePerSecond: 1,
+						damagePerSecond: 2,
 						duration: math.huge,
 					},
 				},
 				Exit: {
 					Poison: {
-						damagePerSecond: 0.5,
+						damagePerSecond: 1,
 						duration: 1,
 					},
 				},

@@ -1,5 +1,5 @@
 import Signal from "@rbxts/lemon-signal";
-import { useDeltaTime, World } from "@rbxts/matter";
+import { useDeltaTime, useEvent, World } from "@rbxts/matter";
 import { useEffect } from "@rbxts/plasma/src/Runtime";
 import { useMotion } from "@rbxts/pretty-vide-utils";
 import { Players } from "@rbxts/services";
@@ -39,6 +39,21 @@ function GetTotal(): number {
 
 export = {
 	system: (world: World) => {
+		for (const character of useEvent(Players.LocalPlayer, "CharacterAdded")) {
+			poison({
+				damagePerSecond: 0,
+				duration: 0,
+			});
+			burning({
+				damagePerSecond: 0,
+				duration: 0,
+			});
+			bleed({
+				damagePercentage: 0,
+				duration: 0,
+			});
+		}
+
 		for (const [id, zahealth] of world.query(Components.Health, Components.LocalPlayer)) {
 			if (health().health > zahealth.health) {
 				damageTimer = 2;

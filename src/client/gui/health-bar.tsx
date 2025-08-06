@@ -22,21 +22,40 @@ const bleed = source({
 	damagePercentage: 0,
 	duration: 0,
 });
+const regen = source({
+	regenPerSecond: 0,
+	duration: 0,
+});
+const overRegen = source({
+	regenPerSecond: 0,
+	duration: 0,
+});
 
 const overHealth = source({
 	health: 0,
 });
 
 const damageThing = source(1);
+const healThing = source(1);
+
+function GetDebuffDamage(): number {
+	return (
+		poison().damagePerSecond * poison().duration +
+		burning().damagePerSecond * burning().duration +
+		health().maxHealth * bleed().damagePercentage * bleed().duration
+	);
+}
+
+function GetBuffHeal(): number {
+	return regen().regenPerSecond * regen().duration + overRegen().regenPerSecond * overRegen().duration;
+}
 
 function GetTotal(): number {
-	return math.max(
-		poison().damagePerSecond * poison().duration +
-			burning().damagePerSecond * burning().duration +
-			health().maxHealth * bleed().damagePercentage * bleed().duration -
-			overHealth().health,
-		0,
-	);
+	return math.clamp(GetDebuffDamage() - overHealth().health, 0, health().maxHealth);
+}
+
+function GetHealTotal(): number {
+	return math.clamp(GetBuffHeal(), 0, health().maxHealth);
 }
 
 export = {
@@ -61,6 +80,9 @@ export = {
 			if (health().health < zahealth.health && damageThing() < zahealth.health / zahealth.maxHealth) {
 				damageThing(zahealth.health / zahealth.maxHealth);
 			}
+			if (health().health > zahealth.health && healThing() > zahealth.health / zahealth.maxHealth) {
+				healThing(zahealth.health / zahealth.maxHealth);
+			}
 			health(zahealth);
 		}
 
@@ -80,7 +102,16 @@ export = {
 			overHealth(zaoverHealth);
 		}
 
+		for (const [id, zaregen] of world.query(Components.Regen, Components.LocalPlayer)) {
+			regen(zaregen);
+		}
+
+		for (const [id, zaoverregen] of world.query(Components.OverRegen, Components.LocalPlayer)) {
+			overRegen(zaoverregen);
+		}
+
 		damageThing(math.lerp(damageThing(), health().health / health().maxHealth, 0.1));
+		healThing(math.lerp(healThing(), health().health / health().maxHealth, 0.1));
 	},
 	gui: () => {
 		return (
@@ -104,7 +135,15 @@ export = {
 						<uicorner CornerRadius={new UDim(0, 8)} />
 					</frame>
 					<frame
-						Size={() => new UDim2(health().health / health().maxHealth, 0, 1, 0)}
+						Size={() =>
+							new UDim2((health().health + GetHealTotal() - GetTotal()) / health().maxHealth, 0, 1, 0)
+						}
+						BackgroundColor3={new Color3(0, 1, 0)}
+					>
+						<uicorner CornerRadius={new UDim(0, 8)} />
+					</frame>
+					<frame
+						Size={() => new UDim2(healThing() - GetTotal() / health().maxHealth, 0, 1, 0)}
 						BackgroundColor3={new Color3(1, 0, 0)}
 					>
 						<uicorner CornerRadius={new UDim(0, 8)} />
@@ -112,23 +151,15 @@ export = {
 					<frame
 						Position={() => new UDim2(health().health / health().maxHealth, 0, 0, 0)}
 						AnchorPoint={new Vector2(1, 0)}
-						Size={() =>
-							new UDim2(
-								GetTotal() >= health().maxHealth
-									? health().health / health().maxHealth
-									: GetTotal() / health().maxHealth,
-								0,
-								1,
-								0,
-							)
-						}
+						Size={() => new UDim2(GetTotal() / health().maxHealth, 0, 1, 0)}
 						BackgroundColor3={new Color3(0.5, 0, 0)}
+						BackgroundTransparency={1}
 					>
 						<uicorner CornerRadius={new UDim(0, 8)} />
 					</frame>
 					<frame
 						Size={() => new UDim2(overHealth().health / health().maxHealth, 0, 1, 0)}
-						BackgroundColor3={new Color3(0, 1, 0)}
+						BackgroundColor3={new Color3(1, 1, 0)}
 					>
 						<uicorner CornerRadius={new UDim(0, 8)} />
 					</frame>

@@ -1,6 +1,4 @@
 import { useEvent, World } from "@rbxts/matter";
-import { ComponentCtor } from "@rbxts/matter/lib/component";
-import table from "@rbxts/plasma/src/widgets/table";
 import { Players } from "@rbxts/services";
 import { Components } from "shared/components";
 import { Remotes } from "shared/remotes";

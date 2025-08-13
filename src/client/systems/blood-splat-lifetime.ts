@@ -1,5 +1,5 @@
 import { useDeltaTime, World } from "@rbxts/matter";
-import { RunService, TweenService } from "@rbxts/services";
+import { TweenService } from "@rbxts/services";
 import { Components } from "shared/components";
 
 export = (world: World) => {

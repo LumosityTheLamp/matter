@@ -1,5 +1,5 @@
 import { useDeltaTime, World } from "@rbxts/matter";
-import { RunService, Workspace } from "@rbxts/services";
+import { Workspace } from "@rbxts/services";
 import { SpawnBloodSplat } from "shared/blood-functions";
 import { Components } from "shared/components";
 import { rng } from "shared/util";

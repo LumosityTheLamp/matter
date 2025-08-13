@@ -1,7 +1,6 @@
 import { Entity, useEvent, World } from "@rbxts/matter";
 import { Players, Workspace } from "@rbxts/services";
 import { Components } from "shared/components";
-import { GameState } from "shared/game-state";
 
 const playersFolder = Workspace.WaitForChild("Players") as Folder;
 

@@ -1,6 +1,5 @@
 import { Component, Entity, World } from "@rbxts/matter";
 import { CollectionService } from "@rbxts/services";
-import TableUtil from "@rbxts/tableutil";
 import { Components } from "shared/components";
 
 const zeTags = new Map<string, Component<any>[]>([

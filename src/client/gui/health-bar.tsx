@@ -179,4 +179,5 @@ export = {
 			</screengui>
 		);
 	},
+	priority: math.huge,
 };

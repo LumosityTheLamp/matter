@@ -1,7 +1,6 @@
 import { useDeltaTime, World } from "@rbxts/matter";
 import { Components } from "shared/components";
 import { DamageEntity } from "shared/entity-functions";
-import { rng } from "shared/util";
 
 export = (world: World) => {
 	for (const [id, bleed] of world.query(Components.Bleed)) {

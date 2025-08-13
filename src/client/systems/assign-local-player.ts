@@ -1,7 +1,6 @@
 import { World } from "@rbxts/matter";
-import { Players, RunService } from "@rbxts/services";
+import { Players } from "@rbxts/services";
 import { Components } from "shared/components";
-import { GameState } from "shared/game-state";
 
 export = (world: World) => {
 	for (const [id, record] of world.queryChanged(Components.Player)) {

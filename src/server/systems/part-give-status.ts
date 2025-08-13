@@ -1,5 +1,4 @@
 import { useEvent, World } from "@rbxts/matter";
-import { Workspace } from "@rbxts/services";
 import TableUtil from "@rbxts/tableutil";
 import { Components } from "shared/components";
 

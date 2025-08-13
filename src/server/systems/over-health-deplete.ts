@@ -1,6 +1,5 @@
 import { useDeltaTime, World } from "@rbxts/matter";
 import { Components } from "shared/components";
-import { OverHealEntity } from "shared/entity-functions";
 
 export = (world: World) => {
 	for (const [id, overHealth, health] of world

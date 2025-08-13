@@ -116,65 +116,41 @@ export = {
 	gui: () => {
 		return (
 			<screengui Parent={Players.LocalPlayer.WaitForChild("PlayerGui")} ResetOnSpawn={false}>
-				<uipadding PaddingBottom={new UDim(0.1, 0)} />
+				<uipadding PaddingBottom={new UDim(0.1, 0)} PaddingLeft={new UDim(0.05, 0)} />
 				<frame
-					Size={new UDim2(0.5, 0, 0, 32)}
-					Position={new UDim2(0.5, 0, 1, 0)}
-					AnchorPoint={new Vector2(0.5, 1)}
+					Size={new UDim2(0.2, 0, 0, 16)}
+					Position={new UDim2(0, 0, 1, 0)}
+					AnchorPoint={new Vector2(0, 1)}
 					BackgroundColor3={new Color3(0, 0, 0)}
 					ClipsDescendants={true}
 				>
-					<uicorner CornerRadius={new UDim(0, 8)} />
-					<uistroke Color={new Color3(0, 0, 0)} Thickness={4} />
+					<uistroke Color={new Color3(0, 0, 0)} Thickness={2} LineJoinMode={"Miter"} />
 					<frame
 						Size={() => {
 							return new UDim2(damageThing(), 0, 1, 0);
 						}}
 						BackgroundColor3={new Color3(1, 1, 1)}
-					>
-						<uicorner CornerRadius={new UDim(0, 8)} />
-					</frame>
+					></frame>
 					<frame
 						Size={() =>
 							new UDim2((health().health + GetHealTotal() - GetTotal()) / health().maxHealth, 0, 1, 0)
 						}
 						BackgroundColor3={new Color3(0, 1, 0)}
-					>
-						<uicorner CornerRadius={new UDim(0, 8)} />
-					</frame>
+					></frame>
 					<frame
 						Size={() => new UDim2(healThing() - GetTotal() / health().maxHealth, 0, 1, 0)}
 						BackgroundColor3={new Color3(1, 0, 0)}
-					>
-						<uicorner CornerRadius={new UDim(0, 8)} />
-					</frame>
+					></frame>
 					<frame
-						Position={() => new UDim2(health().health / health().maxHealth, 0, 0, 0)}
+						Position={() => new UDim2(healThing() - GetTotal() / health().maxHealth, 0, 0, 0)}
 						AnchorPoint={new Vector2(1, 0)}
-						Size={() => new UDim2(GetTotal() / health().maxHealth, 0, 1, 0)}
+						Size={() => new UDim2(0.1, 0, 1, 0)}
 						BackgroundColor3={new Color3(0.5, 0, 0)}
-						BackgroundTransparency={1}
-					>
-						<uicorner CornerRadius={new UDim(0, 8)} />
-					</frame>
+					></frame>
 					<frame
 						Size={() => new UDim2(overHealth().health / health().maxHealth, 0, 1, 0)}
 						BackgroundColor3={new Color3(1, 1, 0)}
-					>
-						<uicorner CornerRadius={new UDim(0, 8)} />
-					</frame>
-					<textlabel
-						Size={new UDim2(1, 0, 1, 0)}
-						BackgroundTransparency={1}
-						TextSize={24}
-						Text={() =>
-							`${math.ceil(health().health + overHealth().health)} / ${math.ceil(health().maxHealth)}`
-						}
-						TextColor3={new Color3(1, 1, 1)}
-						TextStrokeColor3={new Color3(0, 0, 0)}
-						TextStrokeTransparency={0}
-						Font={"Oswald"}
-					/>
+					></frame>
 				</frame>
 			</screengui>
 		);

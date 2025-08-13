@@ -3,6 +3,8 @@ import Plasma from "@rbxts/plasma";
 import { MainWorld } from "./world";
 import { root } from "@rbxts/vide";
 import { RunService } from "@rbxts/services";
+import Net from "@rbxts/yetanothernet";
+import { Routes } from "./routes";
 
 export const MainDebugger = new Debugger(Plasma);
 MainDebugger.authorize = (player) => {
@@ -13,8 +15,11 @@ MainDebugger.authorize = (player) => {
 };
 
 export const MainScheduler = new Loop(MainWorld);
+Net.start(MainScheduler, Routes);
+print("Net Started");
 
 MainDebugger.autoInitialize(MainScheduler);
+print("Debugger Started");
 
 export function LoadSystemsInFolder(folder: Instance) {
 	const systems: System<[]>[] = [];
@@ -22,6 +27,7 @@ export function LoadSystemsInFolder(folder: Instance) {
 	for (const instance of folder.GetChildren()) {
 		if (instance.IsA("ModuleScript")) {
 			systems.push(require(instance) as System<[]>);
+			print(`Loaded System: ${instance.Name}`);
 		}
 	}
 
@@ -37,6 +43,7 @@ export function LoadGuiFolder(folder: Instance) {
 		if (instance.IsA("ModuleScript")) {
 			root((require(instance) as { gui: () => any })["gui"]);
 			systems.push(require(instance) as System<[]>);
+			print(`Loaded Gui: ${instance.Name}`);
 		}
 	}
 
@@ -47,4 +54,5 @@ export function BeginScheduler() {
 	MainScheduler.begin({
 		default: RunService.Heartbeat,
 	});
+	print(`Scheduler Started`);
 }

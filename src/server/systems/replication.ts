@@ -1,7 +1,7 @@
 import { useEvent, World } from "@rbxts/matter";
 import { Players } from "@rbxts/services";
 import { Components } from "shared/components";
-import { Remotes } from "shared/remotes";
+import { Routes } from "shared/routes";
 
 const replicatedComponents = [
 	Components.Health,
@@ -46,7 +46,7 @@ export = {
 		}
 
 		if (next(changes)) {
-			Remotes.ReplicateComponents.fireAll(changes);
+			Routes.MatterReplication.send(changes);
 		}
 
 		for (const [index, player] of useEvent(Players, "PlayerAdded")) {
@@ -64,7 +64,7 @@ export = {
 				payload.set(tostring(id), entityPayload);
 			}
 
-			Remotes.ReplicateComponents.fireAll(payload);
+			Routes.MatterReplication.send(payload).to(player);
 		}
 	},
 	priority: math.huge,

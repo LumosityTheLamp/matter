@@ -50,6 +50,9 @@ importers:
       '@rbxts/vide':
         specifier: ^0.5.7
         version: 0.5.7
+      '@rbxts/yetanothernet':
+        specifier: 0.10.0-alpha.5
+        version: 0.10.0-alpha.5
     devDependencies:
       '@rbxts/compiler-types':
         specifier: 3.0.0-types.0
@@ -211,6 +214,9 @@ packages:
 
   '@rbxts/vide@0.5.7':
     resolution: {integrity: sha512-Q9R7ybzuHK1phtLicBHgAjQnlJ/dMsXDs2k296PIMLgLqK9aX/f1skOP7F1K/vo7IrSE0jCG3B3XTOtQL1Sb0Q==}
+
+  '@rbxts/yetanothernet@0.10.0-alpha.5':
+    resolution: {integrity: sha512-wWzzlcSOLT40b7plvpi/bnZnR1UCpJAWZDy6TqZLlMbrwQl8uSl6Ncgwj/MZHwx9cafIH7n1muPIdzdpCvBekg==}
 
   '@roblox-ts/luau-ast@2.0.0':
     resolution: {integrity: sha512-cmMi093IdwBOLVxwuordhM8AmtbyTIyRpsTbB0D/JauidW4SXsQRQowSwWjHo4QP0DRJBXvOIlxtqEQi50uNzQ==}
@@ -1024,6 +1030,8 @@ snapshots:
   '@rbxts/types@1.0.866': {}
 
   '@rbxts/vide@0.5.7': {}
+
+  '@rbxts/yetanothernet@0.10.0-alpha.5': {}
 
   '@roblox-ts/luau-ast@2.0.0': {}
 

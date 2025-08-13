@@ -38,6 +38,7 @@
     "@rbxts/t": "^3.2.1",
     "@rbxts/tableutil": "^2.0.0",
     "@rbxts/trash": "^1.0.8",
-    "@rbxts/vide": "^0.5.7"
+    "@rbxts/vide": "^0.5.7",
+    "@rbxts/yetanothernet": "0.10.0-alpha.5"
   }
 }

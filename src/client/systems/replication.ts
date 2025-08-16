@@ -3,9 +3,9 @@ import { ComponentCtor } from "@rbxts/matter/lib/component";
 import { Components } from "shared/components";
 import { Routes } from "shared/routes";
 
-export = (world: World) => {
-	const entityIdMap = new Map<string, Entity>();
+const entityIdMap = new Map<string, Entity>();
 
+export = (world: World) => {
 	for (const [index, player, changes] of Routes.MatterReplication.query()) {
 		for (const [serverEntityId, componentMap] of changes) {
 			let clientEntityId = entityIdMap.get(serverEntityId);

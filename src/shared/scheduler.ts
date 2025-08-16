@@ -5,6 +5,7 @@ import { root } from "@rbxts/vide";
 import { RunService } from "@rbxts/services";
 import Net from "@rbxts/yetanothernet";
 import { Routes } from "./routes";
+import Signal from "@rbxts/lemon-signal";
 
 export const MainDebugger = new Debugger(Plasma);
 MainDebugger.authorize = (player) => {
@@ -27,12 +28,12 @@ export function LoadSystemsInFolder(folder: Instance) {
 	for (const instance of folder.GetChildren()) {
 		if (instance.IsA("ModuleScript")) {
 			systems.push(require(instance) as System<[]>);
-			print(`Loaded System: ${instance.Name}`);
 		}
 	}
 
 	if (systems.size() > 0) {
 		MainScheduler.scheduleSystems(systems);
+		print(`Loaded ${systems.size()} Systems`);
 	}
 }
 

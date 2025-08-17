@@ -5,7 +5,6 @@ import { root } from "@rbxts/vide";
 import { RunService } from "@rbxts/services";
 import Net from "@rbxts/yetanothernet";
 import { Routes } from "./routes";
-import Signal from "@rbxts/lemon-signal";
 
 export const MainDebugger = new Debugger(Plasma);
 MainDebugger.authorize = (player) => {

@@ -10,7 +10,7 @@ export = (world: World) => {
 		world.insert(
 			playerEntity,
 			Components.Player({
-				player: player,
+				instance: player,
 			}),
 		);
 	}
@@ -28,7 +28,7 @@ export = (world: World) => {
 					world.insert(
 						playerEntity,
 						Components.Model({
-							model: character,
+							instance: character,
 						}),
 					);
 
@@ -37,7 +37,7 @@ export = (world: World) => {
 						world.insert(
 							playerEntity,
 							Components.Humanoid({
-								humanoid: humanoid,
+								instance: humanoid,
 							}),
 						);
 					}
@@ -71,7 +71,7 @@ export = (world: World) => {
 				world.replace(
 					playerEntity,
 					Components.Player({
-						player: player,
+						instance: player,
 					}),
 				);
 			}

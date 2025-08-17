@@ -40,7 +40,10 @@ const healThing = source(1);
 
 function GetDebuffDamage(): number {
 	return (
-		poison().damagePerSecond * poison().duration +
+		math.min(
+			poison().damagePerSecond * poison().duration,
+			health().health - math.max(health().maxHealth / 100, 1),
+		) +
 		burning().damagePerSecond * burning().duration +
 		health().maxHealth * bleed().damagePercentage * bleed().duration
 	);

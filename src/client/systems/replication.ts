@@ -7,19 +7,19 @@ const entityIdMap = new Map<string, Entity>();
 
 export = (world: World) => {
 	for (const [index, player, changes] of Routes.MatterReplication.query()) {
-		for (const [serverEntityId, componentMap] of changes) {
-			let clientEntityId = entityIdMap.get(serverEntityId);
+		for (const [serverEntityId, componentMap] of pairs(changes)) {
+			let clientEntityId = entityIdMap.get(serverEntityId as string);
 
 			if (clientEntityId && next(componentMap) === undefined) {
 				world.despawn(clientEntityId);
-				entityIdMap.delete(serverEntityId);
+				entityIdMap.delete(serverEntityId as string);
 				continue;
 			}
 
 			const componentsToInsert: AnyComponent[] = [];
 			const componentsToRemove: AnyComponent[] = [];
 
-			for (const [name, container] of componentMap) {
+			for (const [name, container] of pairs(componentMap)) {
 				if (container.data) {
 					componentsToInsert.push(
 						(Components as Record<string, (data: unknown) => AnyComponent>)[name](
@@ -42,7 +42,7 @@ export = (world: World) => {
 
 				world.insert(clientEntityId, Components.Networked());
 
-				entityIdMap.set(serverEntityId, clientEntityId);
+				entityIdMap.set(serverEntityId as string, clientEntityId);
 			} else {
 				for (const c of componentsToInsert) {
 					world.insert(clientEntityId, c);

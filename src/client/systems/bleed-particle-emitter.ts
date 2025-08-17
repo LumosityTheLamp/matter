@@ -22,7 +22,7 @@ export = (world: World) => {
 
 			if (model) {
 				const instances: BasePart[] = [];
-				for (const instance of model.model.GetDescendants()) {
+				for (const instance of model.instance.GetDescendants()) {
 					if (instance.IsA("BasePart")) {
 						instances.push(instance);
 					}

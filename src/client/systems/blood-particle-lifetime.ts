@@ -12,7 +12,7 @@ export = (world: World) => {
 		if (bloodParticle.lifetime <= 0) {
 			const part = world.get(id, Components.Part);
 			if (part) {
-				part.part.Destroy();
+				part.instance.Destroy();
 			}
 			world.despawn(id);
 		}

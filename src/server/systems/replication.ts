@@ -1,7 +1,7 @@
 import { useEvent, World } from "@rbxts/matter";
 import { Players } from "@rbxts/services";
 import { Components } from "shared/components";
-import { Routes } from "shared/routes";
+import { ComponentChangesReplication, EntityComponentChangesReplication, Routes } from "shared/routes";
 
 const replicatedComponents = [
 	Components.Health,
@@ -28,19 +28,19 @@ const replicatedComponents = [
 
 export = {
 	system: (world: World) => {
-		const changes = new Map<string, Map<string, { data: any }>>();
+		const changes: EntityComponentChangesReplication = {};
 
 		for (const component of replicatedComponents) {
 			for (const [id, record] of world.queryChanged(component)) {
 				const key = tostring(id);
 				const name = tostring(component);
 
-				if (changes.get(key) === undefined) {
-					changes.set(key, new Map());
+				if (changes[key] === undefined) {
+					changes[key] = {};
 				}
 
 				if (world.contains(id)) {
-					changes.get(key)!.set(name, { data: record.new });
+					changes[key][name] = { data: record.new };
 				}
 			}
 		}
@@ -50,18 +50,18 @@ export = {
 		}
 
 		for (const [index, player] of useEvent(Players, "PlayerAdded")) {
-			const payload = new Map<string, Map<string, { data: any }>>();
+			const payload: EntityComponentChangesReplication = {};
 
 			for (const [id, entityData] of world) {
-				let entityPayload = new Map<string, { data: any }>();
+				let entityPayload: ComponentChangesReplication = {};
 
 				for (const [component, componentData] of entityData) {
 					if (replicatedComponents.indexOf(component) !== -1) {
-						entityPayload.set(tostring(component), { data: componentData });
+						entityPayload[tostring(component)] = { data: componentData };
 					}
 				}
 
-				payload.set(tostring(id), entityPayload);
+				payload[tostring(id)] = entityPayload;
 			}
 
 			Routes.MatterReplication.send(payload).to(player);

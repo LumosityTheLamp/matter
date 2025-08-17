@@ -13,7 +13,7 @@ export = (world: World) => {
 		if (bloodSplat.lifetime <= 0) {
 			const part = world.get(id, Components.Part);
 			if (part) {
-				const surfaceGui = part.part.FindFirstChild("SurfaceGui") as SurfaceGui;
+				const surfaceGui = part.instance.FindFirstChild("SurfaceGui") as SurfaceGui;
 				if (surfaceGui) {
 					const image = surfaceGui.FindFirstChild("ImageLabel") as ImageLabel;
 
@@ -28,14 +28,14 @@ export = (world: World) => {
 							ImageTransparency: 1,
 						});
 						tween.Completed.Once(() => {
-							part.part.Destroy();
+							part.instance.Destroy();
 							world.despawn(id);
 						});
 						tween.Play();
 						continue;
 					}
 				}
-				part.part.Destroy();
+				part.instance.Destroy();
 			}
 			world.despawn(id);
 		}

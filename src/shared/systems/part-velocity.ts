@@ -9,6 +9,6 @@ if (RunService.IsClient()) {
 
 export = (world: World) => {
 	for (const [id, part, velocity] of world.query(Components.Part, Components.Velocity).without(networked)) {
-		part.part.Position = part.part.Position.add(velocity.velocity.mul(useDeltaTime()));
+		part.instance.Position = part.instance.Position.add(velocity.velocity.mul(useDeltaTime()));
 	}
 };

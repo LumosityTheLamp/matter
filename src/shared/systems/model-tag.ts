@@ -7,8 +7,8 @@ const name = RunService.IsServer() ? "serverEntityId" : "clientEntityId";
 export = (world: World) => {
 	for (const [id, record] of world.queryChanged(Components.Model)) {
 		if (record.new && !record.old) {
-			if (record.new.model) {
-				record.new.model.SetAttribute(name, id);
+			if (record.new.instance) {
+				record.new.instance.SetAttribute(name, id);
 			}
 		}
 	}

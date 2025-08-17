@@ -8,21 +8,21 @@ export namespace Components {
 	}>("Health");
 
 	export const Humanoid = component<{
-		humanoid: Humanoid;
+		instance: Humanoid;
 	}>("Humanoid");
 
 	export const Model = component<{
-		model: Model;
+		instance: Model;
 	}>("Model");
 
 	export const Part = component<{
-		part: BasePart;
+		instance: BasePart;
 	}>("Part");
 
 	export const NaturalRegen = component("NaturalRegen");
 
 	export const Player = component<{
-		player: Player;
+		instance: Player;
 	}>("Player");
 
 	export const Poison = component<{

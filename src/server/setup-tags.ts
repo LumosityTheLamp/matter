@@ -2,177 +2,152 @@ import { Component, Entity, World } from "@rbxts/matter";
 import { CollectionService } from "@rbxts/services";
 import { Components } from "shared/components";
 
-const zeTags = new Map<string, Component<any>[]>([
-	[
-		"GivePoison",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					Poison: {
-						damagePerSecond: 10,
-						duration: math.huge,
-					},
+const zeTags: {
+	[tag: string]: Component<any>[];
+} = {
+	GivePoison: [
+		Components.GiveStatusEffect({
+			Enter: {
+				Poison: {
+					damagePerSecond: 10,
+					duration: math.huge,
 				},
-				Exit: {
-					Poison: {
-						damagePerSecond: 5,
-						duration: 2,
-					},
+			},
+			Exit: {
+				Poison: {
+					damagePerSecond: 5,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"GiveBurning",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					Burning: {
-						damagePerSecond: 10,
-						duration: math.huge,
-					},
+	GiveBurning: [
+		Components.GiveStatusEffect({
+			Enter: {
+				Burning: {
+					damagePerSecond: 10,
+					duration: math.huge,
 				},
-				Exit: {
-					Burning: {
-						damagePerSecond: 5,
-						duration: 2,
-					},
+			},
+			Exit: {
+				Burning: {
+					damagePerSecond: 5,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"GiveSpeedBoost",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					SpeedBoost: {
-						multiplier: 1.75,
-						duration: math.huge,
-					},
+	GiveSpeedBoost: [
+		Components.GiveStatusEffect({
+			Enter: {
+				SpeedBoost: {
+					multiplier: 1.75,
+					duration: math.huge,
 				},
-				Exit: {
-					SpeedBoost: {
-						multiplier: 1.5,
-						duration: 2,
-					},
+			},
+			Exit: {
+				SpeedBoost: {
+					multiplier: 1.5,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"GiveJumpPowerBoost",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					JumpPowerBoost: {
-						multiplier: 1.75,
-						duration: math.huge,
-					},
+	GiveJumpPowerBoost: [
+		Components.GiveStatusEffect({
+			Enter: {
+				JumpPowerBoost: {
+					multiplier: 1.75,
+					duration: math.huge,
 				},
-				Exit: {
-					JumpPowerBoost: {
-						multiplier: 1.5,
-						duration: 2,
-					},
+			},
+			Exit: {
+				JumpPowerBoost: {
+					multiplier: 1.5,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"GiveBleed",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					Bleed: {
-						damagePercentage: 0.2,
-						duration: math.huge,
-					},
+	GiveBleed: [
+		Components.GiveStatusEffect({
+			Enter: {
+				Bleed: {
+					damagePercentage: 0.2,
+					duration: math.huge,
 				},
-				Exit: {
-					Bleed: {
-						damagePercentage: 0.1,
-						duration: 2,
-					},
+			},
+			Exit: {
+				Bleed: {
+					damagePercentage: 0.1,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"GiveRegen",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					Regen: {
-						regenPerSecond: 10,
-						duration: math.huge,
-					},
+	GiveRegen: [
+		Components.GiveStatusEffect({
+			Enter: {
+				Regen: {
+					regenPerSecond: 10,
+					duration: math.huge,
 				},
-				Exit: {
-					Regen: {
-						regenPerSecond: 5,
-						duration: 2,
-					},
+			},
+			Exit: {
+				Regen: {
+					regenPerSecond: 5,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"GiveOverRegen",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					OverRegen: {
-						regenPerSecond: 20,
-						duration: math.huge,
-					},
+	GiveOverRegen: [
+		Components.GiveStatusEffect({
+			Enter: {
+				OverRegen: {
+					regenPerSecond: 20,
+					duration: math.huge,
 				},
-				Exit: {
-					OverRegen: {
-						regenPerSecond: 10,
-						duration: 2,
-					},
+			},
+			Exit: {
+				OverRegen: {
+					regenPerSecond: 10,
+					duration: 2,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"Gas",
-		[
-			Components.GiveStatusEffect({
-				Enter: {
-					Poison: {
-						damagePerSecond: 2,
-						duration: math.huge,
-					},
+	ToxicGas: [
+		Components.GiveStatusEffect({
+			Enter: {
+				Poison: {
+					damagePerSecond: 2,
+					duration: math.huge,
 				},
-				Exit: {
-					Poison: {
-						damagePerSecond: 1,
-						duration: 1,
-					},
+			},
+			Exit: {
+				Poison: {
+					damagePerSecond: 1,
+					duration: 1,
 				},
-			}),
-		],
+			},
+		}),
 	],
-	[
-		"Billy",
-		[
-			Components.Humanoid(),
-			Components.Health({
-				health: 100,
-				maxHealth: 100,
-			}),
-			Components.NaturalRegen(),
-			Components.Speed({
-				speed: 16,
-			}),
-			Components.JumpPower({
-				power: 50,
-			}),
-		],
+	Billy: [
+		Components.Humanoid(),
+		Components.Health({
+			health: 100,
+			maxHealth: 100,
+		}),
+		Components.NaturalRegen(),
+		Components.Speed({
+			speed: 16,
+		}),
+		Components.JumpPower({
+			power: 50,
+		}),
 	],
-]);
+};
 
 export function SetupTags(world: World) {
 	function spawnEntity(instance: Instance, components: Component<any>[]) {
@@ -182,7 +157,7 @@ export function SetupTags(world: World) {
 			world.insert(
 				id,
 				Components.Part({
-					part: instance,
+					instance: instance,
 				}),
 			);
 		}
@@ -191,7 +166,7 @@ export function SetupTags(world: World) {
 			world.insert(
 				id,
 				Components.Model({
-					model: instance,
+					instance: instance,
 				}),
 			);
 		}
@@ -203,20 +178,20 @@ export function SetupTags(world: World) {
 		instance.SetAttribute("tagEntityId", id);
 	}
 
-	zeTags.forEach((component, tagName) => {
-		for (const instance of CollectionService.GetTagged(tagName)) {
+	for (const [tag, component] of pairs(zeTags)) {
+		for (const instance of CollectionService.GetTagged(tag as string)) {
 			spawnEntity(instance, component);
 		}
 
-		CollectionService.GetInstanceAddedSignal(tagName).Connect((instance) => {
+		CollectionService.GetInstanceAddedSignal(tag as string).Connect((instance) => {
 			spawnEntity(instance, component);
 		});
 
-		CollectionService.GetInstanceRemovedSignal(tagName).Connect((instance) => {
+		CollectionService.GetInstanceRemovedSignal(tag as string).Connect((instance) => {
 			const id = instance.GetAttribute("tagEntityId") as Entity;
 			if (id) {
 				world.despawn(id);
 			}
 		});
-	});
+	}
 }

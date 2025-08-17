@@ -15,20 +15,20 @@ export = (world: World) => {
 		Components.Part,
 		Components.Velocity,
 	)) {
-		const ray = Workspace.Raycast(part.part.Position, velocity.velocity.mul(useDeltaTime()), rayParams);
+		const ray = Workspace.Raycast(part.instance.Position, velocity.velocity.mul(useDeltaTime()), rayParams);
 		if (ray) {
 			if (ray.Instance.Anchored) {
-				const sound = part.part.FindFirstChild("BloodSplat") as Sound;
+				const sound = part.instance.FindFirstChild("BloodSplat") as Sound;
 				if (sound) {
 					sound.PlaybackSpeed = rng.NextNumber(0.8, 1.2);
 					sound.Play();
 				}
-				const billboard = part.part.FindFirstChild("BillboardGui") as BillboardGui;
+				const billboard = part.instance.FindFirstChild("BillboardGui") as BillboardGui;
 				if (billboard) {
 					billboard.Enabled = false;
 				}
 				world.remove(id, Components.Velocity);
-				part.part.Position = ray.Position;
+				part.instance.Position = ray.Position;
 				world.insert(
 					id,
 					bloodParticle.patch({

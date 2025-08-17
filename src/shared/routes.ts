@@ -5,8 +5,16 @@ const defaultConfiguration: Configuration = {
 	Event: "default",
 };
 
+export interface ComponentChangesReplication {
+	[componentName: string]: {
+		data: any;
+	};
+}
+
+export interface EntityComponentChangesReplication {
+	[entityId: string]: ComponentChangesReplication;
+}
+
 export namespace Routes {
-	export const MatterReplication = new Route<[changes: Map<string, Map<string, { data: any }>>]>(
-		defaultConfiguration,
-	);
+	export const MatterReplication = new Route<[changes: EntityComponentChangesReplication]>(defaultConfiguration);
 }

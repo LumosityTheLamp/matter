@@ -18,7 +18,7 @@ export function SpawnBloodParticle(world: World, position: Vector3, velocity: Ve
 	world.insert(
 		entity,
 		Components.Part({
-			part: bloodParticleClone,
+			instance: bloodParticleClone,
 		}),
 	);
 	world.insert(
@@ -51,7 +51,7 @@ export function SpawnBloodSplat(world: World, position: Vector3, direction: Vect
 	world.insert(
 		entity,
 		Components.Part({
-			part: bloodSplatClone,
+			instance: bloodSplatClone,
 		}),
 	);
 	world.insert(

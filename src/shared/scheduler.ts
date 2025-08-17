@@ -15,7 +15,10 @@ MainDebugger.authorize = (player) => {
 	return false;
 };
 
-export const MainScheduler = new Loop(MainWorld);
+export const GameState = {};
+export const DebuggerWidgets = MainDebugger.getWidgets();
+
+export const MainScheduler = new Loop(MainWorld, GameState, DebuggerWidgets);
 Net.start(MainScheduler, Routes);
 print("Net Started");
 

@@ -3,9 +3,9 @@ import { Components } from "shared/components";
 
 export = (world: World) => {
 	for (const [id, speed, humanoid] of world.query(Components.Speed, Components.Humanoid)) {
-		if (humanoid["humanoid"]) {
+		if (humanoid["instance"]) {
 			const buff = world.get(id, Components.SpeedBoost);
-			humanoid.humanoid.WalkSpeed = speed.speed * (buff ? buff.multiplier : 1);
+			humanoid.instance.WalkSpeed = speed.speed * (buff ? buff.multiplier : 1);
 		}
 	}
 };

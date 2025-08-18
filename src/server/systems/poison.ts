@@ -9,7 +9,7 @@ export = (world: World) => {
 			DamageEntity(
 				world,
 				id,
-				(health.health > math.max(health.maxHealth / 100, 1) ? poison.damagePerSecond : 0) * useDeltaTime(),
+				(health.value > math.max(health.maxValue / 100, 1) ? poison.damagePerSecond : 0) * useDeltaTime(),
 			);
 		}
 		world.insert(

@@ -24,6 +24,7 @@ const replicatedComponents = [
 	Components.Regen,
 	Components.OverHealth,
 	Components.OverRegen,
+	Components.Animations,
 ];
 
 export = {

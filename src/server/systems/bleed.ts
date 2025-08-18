@@ -6,7 +6,7 @@ export = (world: World) => {
 	for (const [id, bleed] of world.query(Components.Bleed)) {
 		const health = world.get(id, Components.Health);
 		if (health) {
-			DamageEntity(world, id, health.maxHealth * bleed.damagePercentage * useDeltaTime());
+			DamageEntity(world, id, health.maxValue * bleed.damagePercentage * useDeltaTime());
 		}
 		world.insert(
 			id,

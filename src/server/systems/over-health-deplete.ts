@@ -8,10 +8,10 @@ export = (world: World) => {
 		world.insert(
 			id,
 			overHealth.patch({
-				health: overHealth.health - (health.maxHealth / 50) * useDeltaTime(),
+				value: overHealth.value - (health.maxValue / 50) * useDeltaTime(),
 			}),
 		);
-		if (overHealth.health <= 0) {
+		if (overHealth.value <= 0) {
 			world.remove(id, Components.OverHealth);
 		}
 	}

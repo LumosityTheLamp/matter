@@ -7,8 +7,8 @@ import Vide, { source } from "@rbxts/vide";
 import { Components } from "shared/components";
 
 const health = source({
-	health: 100,
-	maxHealth: 100,
+	value: 100,
+	maxValue: 100,
 });
 const poison = source({
 	damagePerSecond: 0,
@@ -32,7 +32,7 @@ const overRegen = source({
 });
 
 const overHealth = source({
-	health: 0,
+	value: 0,
 });
 
 const damageThing = source(1);
@@ -40,12 +40,9 @@ const healThing = source(1);
 
 function GetDebuffDamage(): number {
 	return (
-		math.min(
-			poison().damagePerSecond * poison().duration,
-			health().health - math.max(health().maxHealth / 100, 1),
-		) +
+		math.min(poison().damagePerSecond * poison().duration, health().value - math.max(health().maxValue / 100, 1)) +
 		burning().damagePerSecond * burning().duration +
-		health().maxHealth * bleed().damagePercentage * bleed().duration
+		health().maxValue * bleed().damagePercentage * bleed().duration
 	);
 }
 
@@ -54,11 +51,11 @@ function GetBuffHeal(): number {
 }
 
 function GetTotal(): number {
-	return math.clamp(GetDebuffDamage() - overHealth().health, 0, health().maxHealth);
+	return math.clamp(GetDebuffDamage() - overHealth().value, 0, health().maxValue);
 }
 
 function GetHealTotal(): number {
-	return math.clamp(GetBuffHeal(), 0, health().maxHealth);
+	return math.clamp(GetBuffHeal(), 0, health().maxValue);
 }
 
 export = {
@@ -76,15 +73,15 @@ export = {
 			duration: 0,
 		});
 		overHealth({
-			health: 0,
+			value: 0,
 		});
 
 		for (const [id, zahealth] of world.query(Components.Health, Components.LocalPlayer)) {
-			if (health().health < zahealth.health && damageThing() < zahealth.health / zahealth.maxHealth) {
-				damageThing(zahealth.health / zahealth.maxHealth);
+			if (health().value < zahealth.value && damageThing() < zahealth.value / zahealth.maxValue) {
+				damageThing(zahealth.value / zahealth.maxValue);
 			}
-			if (health().health > zahealth.health && healThing() > zahealth.health / zahealth.maxHealth) {
-				healThing(zahealth.health / zahealth.maxHealth);
+			if (health().value > zahealth.value && healThing() > zahealth.value / zahealth.maxValue) {
+				healThing(zahealth.value / zahealth.maxValue);
 			}
 			health(zahealth);
 		}
@@ -113,8 +110,8 @@ export = {
 			overRegen(zaoverregen);
 		}
 
-		damageThing(math.lerp(damageThing(), health().health / health().maxHealth, 0.1));
-		healThing(math.lerp(healThing(), health().health / health().maxHealth, 0.1));
+		damageThing(math.lerp(damageThing(), health().value / health().maxValue, 0.1));
+		healThing(math.lerp(healThing(), health().value / health().maxValue, 0.1));
 	},
 	gui: () => {
 		return (
@@ -136,22 +133,22 @@ export = {
 					></frame>
 					<frame
 						Size={() =>
-							new UDim2((health().health + GetHealTotal() - GetTotal()) / health().maxHealth, 0, 1, 0)
+							new UDim2((health().value + GetHealTotal() - GetTotal()) / health().maxValue, 0, 1, 0)
 						}
 						BackgroundColor3={new Color3(0, 1, 0)}
 					></frame>
 					<frame
-						Size={() => new UDim2(healThing() - GetTotal() / health().maxHealth, 0, 1, 0)}
+						Size={() => new UDim2(healThing() - GetTotal() / health().maxValue, 0, 1, 0)}
 						BackgroundColor3={new Color3(1, 0, 0)}
 					></frame>
 					<frame
-						Position={() => new UDim2(healThing() - GetTotal() / health().maxHealth, 0, 0, 0)}
+						Position={() => new UDim2(healThing() - GetTotal() / health().maxValue, 0, 0, 0)}
 						AnchorPoint={new Vector2(1, 0)}
 						Size={() => new UDim2(0.1, 0, 1, 0)}
 						BackgroundColor3={new Color3(0.5, 0, 0)}
 					></frame>
 					<frame
-						Size={() => new UDim2(overHealth().health / health().maxHealth, 0, 1, 0)}
+						Size={() => new UDim2(overHealth().value / health().maxValue, 0, 1, 0)}
 						BackgroundColor3={new Color3(1, 1, 0)}
 					></frame>
 				</frame>

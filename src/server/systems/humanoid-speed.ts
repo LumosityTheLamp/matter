@@ -5,7 +5,7 @@ export = (world: World) => {
 	for (const [id, speed, humanoid] of world.query(Components.Speed, Components.Humanoid)) {
 		if (humanoid["instance"]) {
 			const buff = world.get(id, Components.SpeedBoost);
-			humanoid.instance.WalkSpeed = speed.speed * (buff ? buff.multiplier : 1);
+			humanoid.instance.WalkSpeed = speed.value * (buff ? buff.multiplier : 1);
 		}
 	}
 };

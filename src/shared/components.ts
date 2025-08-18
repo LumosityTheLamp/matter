@@ -1,15 +1,25 @@
-import { Component, component } from "@rbxts/matter";
-import table from "@rbxts/plasma/src/widgets/table";
+import { component } from "@rbxts/matter";
 
 export namespace Components {
 	export const Health = component<{
-		health: number;
-		maxHealth: number;
+		value: number;
+		maxValue: number;
 	}>("Health");
 
 	export const Humanoid = component<{
 		instance: Humanoid;
 	}>("Humanoid");
+
+	export const Animations = component<{
+		animations: {
+			[animationName: string]: {
+				id: ContentId;
+				track: AnimationTrack;
+			};
+		};
+	}>("Animations");
+
+	export const DefaultAnimations = component("DefaultAnimations");
 
 	export const Model = component<{
 		instance: Model;
@@ -36,11 +46,11 @@ export namespace Components {
 	}>("Burning");
 
 	export const Speed = component<{
-		speed: number;
+		value: number;
 	}>("Speed");
 
 	export const JumpPower = component<{
-		power: number;
+		value: number;
 	}>("JumpPower");
 
 	export const SpeedBoost = component<{
@@ -64,7 +74,7 @@ export namespace Components {
 	}>("Regen");
 
 	export const OverHealth = component<{
-		health: number;
+		value: number;
 	}>("OverHealth");
 
 	export const OverRegen = component<{

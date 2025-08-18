@@ -24,45 +24,26 @@ export = (world: World) => {
 					task.wait(0.5);
 					character.Parent = playersFolder;
 					character.WaitForChild("Health").Destroy();
+					character.WaitForChild("Animate").Destroy();
 
 					world.insert(
 						playerEntity,
 						Components.Model({
 							instance: character,
 						}),
-					);
-
-					const humanoid = character.FindFirstChildOfClass("Humanoid");
-					if (humanoid) {
-						world.insert(
-							playerEntity,
-							Components.Humanoid({
-								instance: humanoid,
-							}),
-						);
-					}
-
-					world.insert(
-						playerEntity,
+						Components.Humanoid(),
 						Components.Speed({
-							speed: 16,
+							value: 16,
 						}),
-					);
-
-					world.insert(
-						playerEntity,
 						Components.JumpPower({
-							power: 50,
+							value: 50,
 						}),
-					);
-
-					world.insert(
-						playerEntity,
 						Components.Health({
-							health: 100,
-							maxHealth: 100,
+							value: 100,
+							maxValue: 100,
 						}),
 						Components.NaturalRegen(),
+						Components.DefaultAnimations(),
 					);
 				});
 			}

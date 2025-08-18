@@ -5,7 +5,7 @@ export = (world: World) => {
 	for (const [id, jumpPower, humanoid] of world.query(Components.JumpPower, Components.Humanoid)) {
 		if (humanoid["instance"]) {
 			const buff = world.get(id, Components.JumpPowerBoost);
-			humanoid.instance.JumpPower = jumpPower.power * (buff ? buff.multiplier : 1);
+			humanoid.instance.JumpPower = jumpPower.value * (buff ? buff.multiplier : 1);
 		}
 	}
 };

@@ -12,17 +12,17 @@ export function DamageEntity(world: World, entityId: Entity, amount: number) {
 				world.insert(
 					entityId,
 					overHealth.patch({
-						health: math.clamp(overHealth.health - amount, 0, health.maxHealth),
+						value: math.clamp(overHealth.value - amount, 0, health.maxValue),
 					}),
 				);
-				if (overHealth.health <= 0) {
+				if (overHealth.value <= 0) {
 					world.remove(entityId, Components.OverHealth);
 				}
 			} else {
 				world.insert(
 					entityId,
 					health.patch({
-						health: math.clamp(health.health - amount, 0, health.maxHealth),
+						value: math.clamp(health.value - amount, 0, health.maxValue),
 					}),
 				);
 			}
@@ -38,7 +38,7 @@ export function HealEntity(world: World, entityId: Entity, amount: number) {
 			world.insert(
 				entityId,
 				health.patch({
-					health: math.clamp(health.health + amount, 0, health.maxHealth),
+					value: math.clamp(health.value + amount, 0, health.maxValue),
 				}),
 			);
 		}
@@ -50,11 +50,11 @@ export function OverHealEntity(world: World, entityId: Entity, amount: number) {
 		const health = world.get(entityId, Components.Health);
 
 		if (health) {
-			const overheal = math.clamp(health.health + amount - health.maxHealth, 0, health.maxHealth);
+			const overheal = math.clamp(health.value + amount - health.maxValue, 0, health.maxValue);
 			world.insert(
 				entityId,
 				health.patch({
-					health: math.clamp(health.health + amount, 0, health.maxHealth),
+					value: math.clamp(health.value + amount, 0, health.maxValue),
 				}),
 			);
 			if (overheal > 0) {
@@ -63,17 +63,56 @@ export function OverHealEntity(world: World, entityId: Entity, amount: number) {
 					world.insert(
 						entityId,
 						currentOverhealth.patch({
-							health: math.clamp(currentOverhealth.health + overheal, 0, health.maxHealth),
+							value: math.clamp(currentOverhealth.value + overheal, 0, health.maxValue),
 						}),
 					);
 				} else {
 					world.insert(
 						entityId,
 						Components.OverHealth({
-							health: overheal,
+							value: overheal,
 						}),
 					);
 				}
+			}
+		}
+	}
+}
+
+export function SetAnimation(world: World, entityId: Entity, animationName: string, animation: ContentId | Animation) {
+	if (world.contains(entityId)) {
+		let animations = world.get(entityId, Components.Animations);
+		if (!animations) {
+			world.insert(entityId, Components.Animations({ animations: {} }));
+			animations = world.get(entityId, Components.Animations);
+		}
+		const humanoid = world.get(entityId, Components.Humanoid);
+
+		if (humanoid) {
+			if (humanoid.instance) {
+				const animator = humanoid.instance.WaitForChild("Animator") as Animator;
+
+				let zeanimation = animation;
+
+				if (typeOf(zeanimation) === "string") {
+					zeanimation = new Instance("Animation");
+					zeanimation.AnimationId = animation as string;
+				}
+
+				const ahem = animations!.animations;
+				ahem[animationName] = {
+					id: (zeanimation as Animation).AnimationId,
+					track: animator.LoadAnimation(zeanimation as Animation),
+				};
+
+				world.insert(
+					entityId,
+					animations!.patch({
+						animations: ahem,
+					}),
+				);
+
+				(zeanimation as Instance).Destroy();
 			}
 		}
 	}

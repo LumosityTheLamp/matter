@@ -19,7 +19,11 @@ export namespace Components {
 		};
 	}>("Animations");
 
-	export const DefaultAnimations = component("DefaultAnimations");
+	export const MovementAnimations = component<{
+		useDefault: boolean;
+		pose: string;
+		jumpTimer: number;
+	}>("MovementAnimations");
 
 	export const Model = component<{
 		instance: Model;

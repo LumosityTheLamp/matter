@@ -43,7 +43,11 @@ export = (world: World) => {
 							maxValue: 100,
 						}),
 						Components.NaturalRegen(),
-						Components.DefaultAnimations(),
+						Components.MovementAnimations({
+							useDefault: true,
+							pose: "",
+							jumpTimer: 0,
+						}),
 					);
 				});
 			}

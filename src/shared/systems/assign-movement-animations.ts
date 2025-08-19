@@ -13,13 +13,17 @@ const defaultAnimations = {
 
 export = {
 	system: (world: World) => {
-		for (const [id, record] of world.queryChanged(Components.DefaultAnimations)) {
-			if (record.new) {
-				for (const [animationName, animationId] of pairs(defaultAnimations)) {
-					SetAnimation(world, id, animationName, animationId);
-				}
+		for (const [id, record] of world.queryChanged(Components.MovementAnimations)) {
+			if (world.get(id, Components.Networked)) {
+				continue;
+			}
 
-				world.remove(id, Components.DefaultAnimations);
+			if (record.new) {
+				if (record.new.useDefault) {
+					for (const [animationName, animationId] of pairs(defaultAnimations)) {
+						SetAnimation(world, id, animationName, animationId);
+					}
+				}
 			}
 		}
 	},

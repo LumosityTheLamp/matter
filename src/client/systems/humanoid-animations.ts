@@ -29,7 +29,7 @@ export = (world: World) => {
 							divide = model.instance.GetScale();
 						}
 					}
-					walk.track.AdjustSpeed(speed / divide / 14.5);
+					walk.track!.AdjustSpeed(speed / divide / 14.5);
 					pose = "Walk";
 				} else {
 					pose = "Idle";
@@ -39,11 +39,11 @@ export = (world: World) => {
 			for (const [index, active] of useEvent(humanoid.instance, "FreeFalling")) {
 				if (active) {
 					if (jumpTimer <= 0) {
-						if (!fall.track.IsPlaying) {
-							walk.track.Stop(fallTransition);
-							idle.track.Stop(fallTransition);
-							jump.track.Stop(fallTransition);
-							fall.track.Play(fallTransition);
+						if (!fall.track!.IsPlaying) {
+							walk.track!.Stop(fallTransition);
+							idle.track!.Stop(fallTransition);
+							jump.track!.Stop(fallTransition);
+							fall.track!.Play(fallTransition);
 						}
 					}
 
@@ -53,12 +53,12 @@ export = (world: World) => {
 
 			for (const [index, active] of useEvent(humanoid.instance, "Jumping")) {
 				if (active) {
-					if (!jump.track.IsPlaying) {
-						walk.track.Stop(transition);
-						idle.track.Stop(transition);
-						fall.track.Stop(transition);
+					if (!jump.track!.IsPlaying) {
+						walk.track!.Stop(transition);
+						idle.track!.Stop(transition);
+						fall.track!.Stop(transition);
 
-						jump.track.Play(transition);
+						jump.track!.Play(transition);
 					}
 
 					pose = "Jump";
@@ -72,45 +72,45 @@ export = (world: World) => {
 
 			switch (pose) {
 				case "Idle":
-					if (!idle.track.IsPlaying) {
-						walk.track.Stop(transition);
-						jump.track.Stop(transition);
-						fall.track.Stop(transition);
-						idle.track.Play(transition);
+					if (!idle.track!.IsPlaying) {
+						walk.track!.Stop(transition);
+						jump.track!.Stop(transition);
+						fall.track!.Stop(transition);
+						idle.track!.Play(transition);
 					}
 					break;
 				case "Walk":
-					if (!walk.track.IsPlaying) {
-						idle.track.Stop(transition);
-						jump.track.Stop(transition);
-						fall.track.Stop(transition);
-						walk.track.Play(transition);
+					if (!walk.track!.IsPlaying) {
+						idle.track!.Stop(transition);
+						jump.track!.Stop(transition);
+						fall.track!.Stop(transition);
+						walk.track!.Play(transition);
 					}
 					break;
 				case "Jump":
-					if (!jump.track.IsPlaying) {
-						walk.track.Stop(transition);
-						idle.track.Stop(transition);
-						fall.track.Stop(transition);
+					if (!jump.track!.IsPlaying) {
+						walk.track!.Stop(transition);
+						idle.track!.Stop(transition);
+						fall.track!.Stop(transition);
 
-						jump.track.Play(transition);
+						jump.track!.Play(transition);
 					}
 					break;
 				case "FreeFall":
 					if (jumpTimer <= 0) {
-						if (!fall.track.IsPlaying) {
-							jump.track.Stop(fallTransition);
-							walk.track.Stop(fallTransition);
-							idle.track.Stop(fallTransition);
-							fall.track.Play(fallTransition);
+						if (!fall.track!.IsPlaying) {
+							jump.track!.Stop(fallTransition);
+							walk.track!.Stop(fallTransition);
+							idle.track!.Stop(fallTransition);
+							fall.track!.Play(fallTransition);
 						}
 					}
 					break;
 				case "Dead":
-					walk.track.Stop();
-					idle.track.Stop();
-					jump.track.Stop();
-					fall.track.Stop();
+					walk.track!.Stop();
+					idle.track!.Stop();
+					jump.track!.Stop();
+					fall.track!.Stop();
 					break;
 				default:
 					pose = "Idle";

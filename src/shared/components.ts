@@ -14,13 +14,13 @@ export namespace Components {
 		animations: {
 			[animationName: string]: {
 				id: ContentId;
-				track: AnimationTrack;
+				track?: AnimationTrack | undefined;
 			};
 		};
 	}>("Animations");
 
 	export const MovementAnimations = component<{
-		useDefault: boolean;
+		useDefaults: boolean;
 		pose: string;
 		jumpTimer: number;
 	}>("MovementAnimations");

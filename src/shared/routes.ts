@@ -17,4 +17,5 @@ export interface EntityComponentChangesReplication {
 
 export namespace Routes {
 	export const MatterReplication = new Route<[changes: EntityComponentChangesReplication]>(defaultConfiguration);
+	export const Block = new Route<[active: boolean]>(defaultConfiguration);
 }

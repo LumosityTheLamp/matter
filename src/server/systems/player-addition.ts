@@ -8,6 +8,7 @@ const playersFolder = Workspace.WaitForChild("Players") as Folder;
 function SetupCharacter(character: Model) {
 	character.WaitForChild("Health").Destroy();
 	character.WaitForChild("Animate").Destroy();
+	character.PrimaryPart = character.WaitForChild("HumanoidRootPart") as Part;
 
 	const rightArm = character.WaitForChild("Right Arm") as Part;
 
@@ -70,6 +71,9 @@ export = (world: World) => {
 						Components.Model({
 							instance: character,
 						}),
+						Components.Sword({
+							instance: character.WaitForChild("Sword") as Model,
+						}),
 						Components.Humanoid(),
 						Components.Speed({
 							value: 16,
@@ -85,10 +89,10 @@ export = (world: World) => {
 						Components.Animations({
 							animations: {
 								Idle: {
-									id: "rbxassetid://80688280508007",
+									id: "rbxassetid://126103463831238",
 								},
 								Walk: {
-									id: "rbxassetid://113236439279099",
+									id: "rbxassetid://107728846537781",
 								},
 								Jump: {
 									id: defaultAnimationsIds.Jump,
@@ -101,6 +105,12 @@ export = (world: World) => {
 								},
 								Sit: {
 									id: defaultAnimationsIds.Sit,
+								},
+								Block: {
+									id: "rbxassetid://132450631614420",
+								},
+								BlockHold: {
+									id: "rbxassetid://126305655897380",
 								},
 							},
 						}),

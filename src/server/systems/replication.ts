@@ -26,6 +26,10 @@ const replicatedComponents = [
 	Components.OverRegen,
 	Components.Animations,
 	Components.MovementAnimations,
+	Components.Sword,
+	Components.Blocking,
+	Components.Billy,
+	Components.Boss,
 ];
 
 export = {

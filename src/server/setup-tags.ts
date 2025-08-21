@@ -136,15 +136,18 @@ const zeTags: {
 	Billy: [
 		Components.Humanoid(),
 		Components.Health({
-			value: 100,
-			maxValue: 100,
+			value: 500,
+			maxValue: 500,
 		}),
-		Components.NaturalRegen(),
 		Components.Speed({
-			value: 16,
+			value: 24,
 		}),
 		Components.JumpPower({
-			value: 50,
+			value: 100,
+		}),
+		Components.Billy({}),
+		Components.Boss({
+			name: "Billy",
 		}),
 	],
 };

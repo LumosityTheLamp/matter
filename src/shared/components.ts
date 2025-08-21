@@ -33,6 +33,20 @@ export namespace Components {
 		instance: BasePart;
 	}>("Part");
 
+	export const Sword = component<{
+		instance: Model;
+	}>("Sword");
+
+	export const Blocking = component<{
+		parryFrames: number;
+	}>("Blocking");
+
+	export const Billy = component<{}>("Billy");
+
+	export const Boss = component<{
+		name: string;
+	}>("Boss");
+
 	export const NaturalRegen = component("NaturalRegen");
 
 	export const Player = component<{

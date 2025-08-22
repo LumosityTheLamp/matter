@@ -140,7 +140,7 @@ export = {
 					Font={"Fondamento"}
 				></textlabel>
 				<frame
-					Size={new UDim2(0.2, 0, 0, 16)}
+					Size={new UDim2(0.5, 0, 0, 16)}
 					Position={new UDim2(0, 0, 0, -32)}
 					AnchorPoint={new Vector2(0, 1)}
 					BackgroundColor3={new Color3(0, 0, 0)}

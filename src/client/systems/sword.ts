@@ -28,7 +28,6 @@ export = (world: World) => {
 				}
 			} else {
 				if (block) {
-					blockAnimation.track!.Stop(0.3);
 					blockHoldAnimation.track!.Stop(0.3);
 					Routes.Block.send(false);
 				}

@@ -107,10 +107,10 @@ export = (world: World) => {
 									id: defaultAnimationsIds.Sit,
 								},
 								Block: {
-									id: "rbxassetid://132450631614420",
+									id: "rbxassetid://92902533560951",
 								},
 								BlockHold: {
-									id: "rbxassetid://126305655897380",
+									id: "rbxassetid://102773756832511",
 								},
 							},
 						}),

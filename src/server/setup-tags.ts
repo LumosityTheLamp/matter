@@ -149,6 +149,13 @@ const zeTags: {
 		Components.Boss({
 			name: "Billy",
 		}),
+		Components.Animations({
+			animations: {
+				Idle: {
+					id: "rbxassetid://133005000027189",
+				},
+			},
+		}),
 	],
 };
 

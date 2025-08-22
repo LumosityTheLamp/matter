@@ -38,6 +38,7 @@ export namespace Components {
 	}>("Sword");
 
 	export const Blocking = component<{
+		active: boolean;
 		parryFrames: number;
 	}>("Blocking");
 

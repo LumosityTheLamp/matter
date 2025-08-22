@@ -127,7 +127,7 @@ export = {
 			>
 				<uipadding PaddingTop={new UDim(0.1, 0)} PaddingLeft={new UDim(0.05, 0)} />
 				<textlabel
-					Position={new UDim2(0, 0, 0, -40)}
+					Position={new UDim2(0, 0, 0, -24)}
 					Size={new UDim2(1, 0, 0, 16)}
 					TextStrokeColor3={new Color3(0, 0, 0)}
 					TextStrokeTransparency={0}
@@ -141,7 +141,7 @@ export = {
 				></textlabel>
 				<frame
 					Size={new UDim2(0.2, 0, 0, 16)}
-					Position={new UDim2(0, 0, 0, 8)}
+					Position={new UDim2(0, 0, 0, -32)}
 					AnchorPoint={new Vector2(0, 1)}
 					BackgroundColor3={new Color3(0, 0, 0)}
 					ClipsDescendants={true}

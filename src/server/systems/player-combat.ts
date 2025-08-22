@@ -10,15 +10,21 @@ export = (world: World) => {
 					world.insert(
 						pid,
 						Components.Blocking({
+							active: true,
 							parryFrames: 10,
 						}),
 					);
 				}
 			}
 		} else {
-			for (const [pid, cplayer] of world.query(Components.Player)) {
+			for (const [pid, cplayer, blocking] of world.query(Components.Player, Components.Blocking)) {
 				if (player === cplayer.instance) {
-					world.remove(pid, Components.Blocking);
+					world.insert(
+						pid,
+						blocking.patch({
+							active: false,
+						}),
+					);
 				}
 			}
 		}
@@ -32,6 +38,10 @@ export = (world: World) => {
 					parryFrames: blocking.parryFrames - 1,
 				}),
 			);
+		} else {
+			if (!blocking.active) {
+				world.remove(id, Components.Blocking);
+			}
 		}
 	}
 };

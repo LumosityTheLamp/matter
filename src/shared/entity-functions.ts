@@ -79,6 +79,24 @@ export function OverHealEntity(world: World, entityId: Entity, amount: number) {
 	}
 }
 
+export function AttemptAssignHumanoid(world: World, entityId: Entity) {
+	const model = world.get(entityId, Components.Model);
+
+	if (model) {
+		if (model.instance) {
+			const humanoid = model.instance.FindFirstChildOfClass("Humanoid") as Humanoid;
+			if (humanoid) {
+				world.insert(
+					entityId,
+					Components.Humanoid({
+						instance: humanoid,
+					}),
+				);
+			}
+		}
+	}
+}
+
 export function SetAnimation(world: World, entityId: Entity, animationName: string, animation: ContentId | Animation) {
 	if (world.contains(entityId)) {
 		let animations = world.get(entityId, Components.Animations);
@@ -86,33 +104,40 @@ export function SetAnimation(world: World, entityId: Entity, animationName: stri
 			world.insert(entityId, Components.Animations({ animations: {} }));
 			animations = world.get(entityId, Components.Animations);
 		}
-		const humanoid = world.get(entityId, Components.Humanoid);
+		let humanoid = world.get(entityId, Components.Humanoid);
 
 		if (humanoid) {
-			if (humanoid.instance) {
-				const animator = humanoid.instance.WaitForChild("Animator") as Animator;
+			if (!humanoid.instance) {
+				AttemptAssignHumanoid(world, entityId);
+				humanoid = world.get(entityId, Components.Humanoid);
+			}
 
-				let zeanimation = animation;
+			if (humanoid) {
+				if (humanoid.instance) {
+					const animator = humanoid.instance.WaitForChild("Animator") as Animator;
 
-				if (typeOf(zeanimation) === "string") {
-					zeanimation = new Instance("Animation");
-					zeanimation.AnimationId = animation as string;
+					let zeanimation = animation;
+
+					if (typeOf(zeanimation) === "string") {
+						zeanimation = new Instance("Animation");
+						zeanimation.AnimationId = animation as string;
+					}
+
+					const ahem = animations!.animations;
+					ahem[animationName] = {
+						id: (zeanimation as Animation).AnimationId,
+						track: animator.LoadAnimation(zeanimation as Animation),
+					};
+
+					world.insert(
+						entityId,
+						animations!.patch({
+							animations: ahem,
+						}),
+					);
+
+					(zeanimation as Instance).Destroy();
 				}
-
-				const ahem = animations!.animations;
-				ahem[animationName] = {
-					id: (zeanimation as Animation).AnimationId,
-					track: animator.LoadAnimation(zeanimation as Animation),
-				};
-
-				world.insert(
-					entityId,
-					animations!.patch({
-						animations: ahem,
-					}),
-				);
-
-				(zeanimation as Instance).Destroy();
 			}
 		}
 	}

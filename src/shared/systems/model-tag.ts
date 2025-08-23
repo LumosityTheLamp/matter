@@ -16,7 +16,7 @@ export = (world: World) => {
 						};
 					} = {};
 					for (const instance of record.new.instance.WaitForChild("Hitboxes").GetChildren()) {
-						data[instance.Name].instance = instance as Part;
+						data[instance.Name] = { instance: instance as Part };
 					}
 					world.insert(
 						id,

@@ -10,26 +10,6 @@ const health = source({
 	value: 100,
 	maxValue: 100,
 });
-const poison = source({
-	damagePerSecond: 0,
-	duration: 0,
-});
-const burning = source({
-	damagePerSecond: 0,
-	duration: 0,
-});
-const bleed = source({
-	damagePercentage: 0,
-	duration: 0,
-});
-const regen = source({
-	regenPerSecond: 0,
-	duration: 0,
-});
-const overRegen = source({
-	regenPerSecond: 0,
-	duration: 0,
-});
 
 const overHealth = source({
 	value: 0,
@@ -38,44 +18,8 @@ const overHealth = source({
 const damageThing = source(1);
 const healThing = source(1);
 
-function GetDebuffDamage(): number {
-	return (
-		math.min(poison().damagePerSecond * poison().duration, health().value - math.max(health().maxValue / 100, 1)) +
-		burning().damagePerSecond * burning().duration +
-		health().maxValue * bleed().damagePercentage * bleed().duration
-	);
-}
-
-function GetBuffHeal(): number {
-	return regen().regenPerSecond * regen().duration + overRegen().regenPerSecond * overRegen().duration;
-}
-
-function GetTotal(): number {
-	return math.clamp(GetDebuffDamage() - overHealth().value, 0, health().maxValue);
-}
-
-function GetHealTotal(): number {
-	return math.clamp(GetBuffHeal(), 0, health().maxValue);
-}
-
 export = {
 	system: (world: World) => {
-		poison({
-			damagePerSecond: 0,
-			duration: 0,
-		});
-		burning({
-			damagePerSecond: 0,
-			duration: 0,
-		});
-		bleed({
-			damagePercentage: 0,
-			duration: 0,
-		});
-		overHealth({
-			value: 0,
-		});
-
 		for (const [id, zahealth] of world.query(Components.Health, Components.LocalPlayer)) {
 			if (health().value < zahealth.value && damageThing() < zahealth.value / zahealth.maxValue) {
 				damageThing(zahealth.value / zahealth.maxValue);
@@ -86,28 +30,8 @@ export = {
 			health(zahealth);
 		}
 
-		for (const [id, zapoison] of world.query(Components.Poison, Components.LocalPlayer)) {
-			poison(zapoison);
-		}
-
-		for (const [id, zaburning] of world.query(Components.Burning, Components.LocalPlayer)) {
-			burning(zaburning);
-		}
-
-		for (const [id, zableed] of world.query(Components.Bleed, Components.LocalPlayer)) {
-			bleed(zableed);
-		}
-
 		for (const [id, zaoverHealth] of world.query(Components.OverHealth, Components.LocalPlayer)) {
 			overHealth(zaoverHealth);
-		}
-
-		for (const [id, zaregen] of world.query(Components.Regen, Components.LocalPlayer)) {
-			regen(zaregen);
-		}
-
-		for (const [id, zaoverregen] of world.query(Components.OverRegen, Components.LocalPlayer)) {
-			overRegen(zaoverregen);
 		}
 
 		damageThing(math.lerp(damageThing(), health().value / health().maxValue, 0.1));
@@ -136,17 +60,12 @@ export = {
 						BackgroundColor3={new Color3(1, 1, 1)}
 					></frame>
 					<frame
-						Size={() =>
-							new UDim2((health().value + GetHealTotal() - GetTotal()) / health().maxValue, 0, 1, 0)
-						}
+						Size={() => new UDim2(health().value / health().maxValue, 0, 1, 0)}
 						BackgroundColor3={new Color3(0, 1, 0)}
 					></frame>
+					<frame Size={() => new UDim2(healThing(), 0, 1, 0)} BackgroundColor3={new Color3(1, 0, 0)}></frame>
 					<frame
-						Size={() => new UDim2(healThing() - GetTotal() / health().maxValue, 0, 1, 0)}
-						BackgroundColor3={new Color3(1, 0, 0)}
-					></frame>
-					<frame
-						Position={() => new UDim2(healThing() - GetTotal() / health().maxValue, 0, 0, 0)}
+						Position={() => new UDim2(healThing(), 0, 0, 0)}
 						AnchorPoint={new Vector2(1, 0)}
 						Size={() => new UDim2(0.1, 0, 1, 0)}
 						BackgroundColor3={new Color3(0.5, 0, 0)}

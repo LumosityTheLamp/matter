@@ -30,6 +30,34 @@ export function DamageEntity(world: World, entityId: Entity, amount: number) {
 	}
 }
 
+export function DamageEntityStructure(
+	world: World,
+	entityId: Entity,
+	amount: number,
+	shouldBreak?: boolean | undefined,
+) {
+	if (world.contains(entityId)) {
+		const structure = world.get(entityId, Components.Structure);
+
+		if (structure) {
+			if (math.clamp(structure.value - amount, 0, structure.maxValue) <= 0 && shouldBreak) {
+				world.insert(
+					entityId,
+					structure.patch({
+						broken: 5,
+					}),
+				);
+			}
+			world.insert(
+				entityId,
+				structure.patch({
+					value: math.clamp(structure.value - amount, 0, structure.maxValue),
+				}),
+			);
+		}
+	}
+}
+
 export function HealEntity(world: World, entityId: Entity, amount: number) {
 	if (world.contains(entityId)) {
 		const health = world.get(entityId, Components.Health);
@@ -39,6 +67,21 @@ export function HealEntity(world: World, entityId: Entity, amount: number) {
 				entityId,
 				health.patch({
 					value: math.clamp(health.value + amount, 0, health.maxValue),
+				}),
+			);
+		}
+	}
+}
+
+export function HealEntityStructure(world: World, entityId: Entity, amount: number) {
+	if (world.contains(entityId)) {
+		const structure = world.get(entityId, Components.Structure);
+
+		if (structure) {
+			world.insert(
+				entityId,
+				structure.patch({
+					value: math.clamp(structure.value + amount, 0, structure.maxValue),
 				}),
 			);
 		}

@@ -119,6 +119,11 @@ export = (world: World) => {
 							pose: "",
 							jumpTimer: 0,
 						}),
+						Components.Structure({
+							value: 100,
+							maxValue: 100,
+							broken: 0,
+						}),
 					);
 				});
 			}

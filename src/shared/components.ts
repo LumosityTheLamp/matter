@@ -6,6 +6,12 @@ export namespace Components {
 		maxValue: number;
 	}>("Health");
 
+	export const Structure = component<{
+		value: number;
+		maxValue: number;
+		broken: number;
+	}>("Structure");
+
 	export const Humanoid = component<{
 		instance: Humanoid;
 	}>("Humanoid");
@@ -54,6 +60,8 @@ export namespace Components {
 		state: string;
 		targetPlayer: Player | undefined;
 		stateTimer: number;
+		flyRotation: number;
+		hitEntities: Entity[];
 	}>("Billy");
 
 	export const Boss = component<{

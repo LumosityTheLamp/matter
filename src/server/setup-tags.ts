@@ -149,6 +149,8 @@ const zeTags: {
 			state: "",
 			targetPlayer: undefined,
 			stateTimer: 0,
+			flyRotation: 0,
+			hitEntities: [],
 		}),
 		Components.Boss({
 			name: "Billy",
@@ -159,6 +161,14 @@ const zeTags: {
 					id: "rbxassetid://133005000027189",
 				},
 			},
+		}),
+		Components.Velocity({
+			velocity: Vector3.zero,
+		}),
+		Components.Structure({
+			value: 400,
+			maxValue: 400,
+			broken: 0,
 		}),
 	],
 };

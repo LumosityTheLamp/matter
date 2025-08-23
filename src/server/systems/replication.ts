@@ -30,6 +30,7 @@ const replicatedComponents = [
 	Components.Blocking,
 	Components.Billy,
 	Components.Boss,
+	Components.Hitboxes,
 ];
 
 export = {

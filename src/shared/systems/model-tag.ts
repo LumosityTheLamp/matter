@@ -9,6 +9,22 @@ export = (world: World) => {
 		if (record.new && !record.old) {
 			if (record.new.instance) {
 				record.new.instance.SetAttribute(name, id);
+				if (record.new.instance.FindFirstChild("Hitboxes")) {
+					const data: {
+						[instanceName: string]: {
+							instance: Part;
+						};
+					} = {};
+					for (const instance of record.new.instance.WaitForChild("Hitboxes").GetChildren()) {
+						data[instance.Name].instance = instance as Part;
+					}
+					world.insert(
+						id,
+						Components.Hitboxes({
+							hitboxes: data,
+						}),
+					);
+				}
 			}
 		}
 	}

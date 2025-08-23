@@ -145,7 +145,11 @@ const zeTags: {
 		Components.JumpPower({
 			value: 100,
 		}),
-		Components.Billy({}),
+		Components.Billy({
+			state: "",
+			targetPlayer: undefined,
+			stateTimer: 0,
+		}),
 		Components.Boss({
 			name: "Billy",
 		}),

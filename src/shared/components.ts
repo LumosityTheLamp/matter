@@ -1,4 +1,4 @@
-import { component } from "@rbxts/matter";
+import { component, Entity } from "@rbxts/matter";
 
 export namespace Components {
 	export const Health = component<{
@@ -33,6 +33,14 @@ export namespace Components {
 		instance: BasePart;
 	}>("Part");
 
+	export const Hitboxes = component<{
+		hitboxes: {
+			[hitboxName: string]: {
+				instance: Part;
+			};
+		};
+	}>("Hitboxes");
+
 	export const Sword = component<{
 		instance: Model;
 	}>("Sword");
@@ -42,7 +50,11 @@ export namespace Components {
 		parryFrames: number;
 	}>("Blocking");
 
-	export const Billy = component<{}>("Billy");
+	export const Billy = component<{
+		state: string;
+		targetPlayer: Player | undefined;
+		stateTimer: number;
+	}>("Billy");
 
 	export const Boss = component<{
 		name: string;
